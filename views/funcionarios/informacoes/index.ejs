@@ -1,0 +1,117 @@
+<%- include('../../parts/header.ejs') %>
+
+<div class="container">
+    <br>
+
+    <form action="/informacoes/save" method="POST">
+        <div class="card">
+            <div class="card-header">
+                <h4>Endereço</h4>
+            </div>
+            <div class="card-body">
+                <input class="form-control" type="hidden" name="endereco_funcionario" value="<%=funcionario.funcionario_id %>">
+                <input class="form-control" type="text" minlength="8" maxlength="8" name="endereco_cep" placeholder="CEP" required><br>
+                <input class="form-control" type="text" name="endereco_bairro" placeholder="Bairro" required><br>
+                <input class="form-control" type="text" name="endereco_rua" placeholder="Endereço" required><br>
+                <input class="form-control" type="number" name="endereco_numero" placeholder="Número" required>
+            </div>
+        </div>
+        <br>
+        
+        <div class="card">
+            <div class="card-header">
+                <h4>RG</h4>
+            </div>
+            <div class="card-body">
+                <input class="form-control" type="hidden" name="rg_funcionario" value="<%=funcionario.funcionario_id %>">
+                <input class="form-control" type="text" minlength="7" maxlength="7" name="rg_numero" placeholder="Número do RG" required><br>
+                <input class="form-control" type="text" name="rg_orgaoExpedidor" placeholder="Órgão Expedidor" required><br>
+                <input class="form-control" type="date" name="rg_dataExpedicao" required>
+            </div>
+        </div>
+        <br>
+
+        <div class="card">
+            <div class="card-header">
+                <h4>CPF</h4>        
+            </div>
+            <div class="card-body">
+                <input class="form-control" type="hidden" name="cpf_funcionario" value="<%=funcionario.funcionario_id %>">
+                <input class="form-control" type="text" minlength="11" maxlength="11" name="cpf_numero" placeholder="Número do CPF" required>
+            </div>
+        </div>
+        <br>
+        
+        <div class="card">
+            <div class="card-header">
+                <h4>SUS</h4>
+            </div>
+            <div class="card-body">
+                <input class="form-control" type="hidden" name="sus_funcionario" value="<%=funcionario.funcionario_id %>">
+                <input class="form-control" type="text" minlength="15" maxlength="15" name="sus_numero" placeholder="Número do SUS" required>
+            </div>
+        </div>
+        <br>
+        
+        <div class="card">
+            <div class="card-header">
+                <h4>Título de Eleitor</h4>
+            </div>
+            <div class="card-body">
+                <input class="form-control" type="hidden" name="titulo_funcionario" value="<%=funcionario.funcionario_id %>">
+                <input class="form-control" type="text" minlength="12" maxlength="12" name="titulo_numeroInscricao" placeholder="Número de Inscrição" required><br>
+                <input class="form-control" type="text" minlength="3" maxlength="3" name="titulo_zona" placeholder="Zona" required><br>
+                <input class="form-control" type="text" minlength="2" maxlength="2" name="titulo_uf" placeholder="UF" required><br>
+                <input class="form-control" type="text" name="titulo_municipio" placeholder="Título Município" required><br>
+                <input class="form-control" type="date" name="titulo_dataEmissao" placeholder="Data de Emissão" required>
+            </div>
+        </div>
+        <br>
+        
+        <div class="card">
+            <div class="card-header">
+                <h4>Carteira de Trabalho</h4>
+            </div>
+            <div class="card-body">
+                <input class="form-control" type="hidden" name="ctps_funcionario" value="<%=funcionario.funcionario_id %>">
+                <input class="form-control" type="text" minlength="7" maxlength="7" name="ctps_numero" placeholder="CTPS Número" required><br>
+                <input class="form-control" type="text" minlength="4" maxlength="4" name="ctps_serie" placeholder="CTPS Série" required><br>
+                <input class="form-control" type="text" minlength="2" maxlength="2" name="ctps_uf" placeholder="CTPS UF" required>
+            </div>
+        </div>
+        <br>
+        
+        <div class="card">
+            <div class="card-header">
+                <h4>Reservista</h4>
+            </div>
+            <div class="card-body">
+                <input class="form-control" type="hidden" name="reservista_funcionario" value="<%=funcionario.funcionario_id %>">
+                <input class="form-control" type="text" minlength="12" maxlength="12" name="reservista_ra" placeholder="Reservista RA" required><br>
+                <input class="form-control" type="text" name="reservista_filiacaoMae" placeholder="Filiação Mãe"><br>
+                <input class="form-control" type="text" name="reservista_filiacaoPai" placeholder="Filiação Pai">
+            </div>
+        </div>
+        <br>
+
+        <div class="card">
+            <div class="card-header">
+                <h4>Informações Bancárias</h4>
+            </div>
+            <div class="card-body">
+                <input class="form-control" type="hidden" name="banco_funcionario" value="<%=funcionario.funcionario_id %>">
+                <input class="form-control" type="text" minlength="4" maxlength="4" name="banco_agencia" placeholder="Número da Agência" required><br>
+                <input class="form-control" type="text" minlength="3" maxlength="3" name="banco_tipoConta" placeholder="Numero de Operação" required><br>
+                <input class="form-control" type="text" minlength="9" maxlength="9" name="banco_numeroConta" placeholder="Número da Conta" required>
+            </div>
+        </div>
+        <br>
+
+        <hr>
+        <button class="btn btn-success" type="submit">Cadastrar Informações</button>
+        <hr>
+        <br>
+    </form>
+</div>
+
+<%- include('../../parts/footer.ejs') %>

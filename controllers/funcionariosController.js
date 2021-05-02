@@ -47,7 +47,7 @@ router.post('/funcionario/save', adminAuth, (request, response) => {
             funcionario_email: funcionario_email,
             funcionario_telefone: funcionario_telefone,
         }).then(() => {
-            response.redirect('/funcionarios');
+            response.redirect('/informacoes');
         }).catch((err) => {
             response.redirect('/funcionario/new');
             console.log(err);   

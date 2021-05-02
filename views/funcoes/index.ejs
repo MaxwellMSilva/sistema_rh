@@ -25,7 +25,7 @@
                     <td>
                         <a class="btn btn-warning" href="/funcao/edit/<%=funcao.funcao_id %>">Editar</a>
                         
-                        <form action="/funcao/delete/<%=funcao.funcao_id  %>" method="POST">
+                        <form action="/funcao/delete/<%=funcao.funcao_id  %>" method="POST" onsubmit="confirmDelete(event, this)" style="display: inline;">
                             <input type="hidden" value="<%=funcao.funcao_id %>">
                             <button class="btn btn-danger">Excluir</button>
                         </form>
@@ -37,3 +37,13 @@
 </div>
 
 <%- include('../parts/footer.ejs') %>
+
+<script>
+    function confirmDelete(event, form) {
+        event.preventDefault();
+        var decision = confirm('Você deseja deletar esta função?');
+        if (decision) {
+            form.submit();
+        }
+    }
+</script>

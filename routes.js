@@ -6,10 +6,12 @@ const adminController = require('./controllers/adminController');
 const departamentosController = require('./controllers/departamentosController');
 const funcoesController = require('./controllers/funcoesController');
 const funcionariosController = require('./controllers/funcionariosController');
+const complementoController = require('./controllers/complementoController');
 
 routes.use('/', adminController);
 routes.use('/', departamentosController);
 routes.use('/', funcoesController);
 routes.use('/', funcionariosController);
+routes.use('/', complementoController);
 
 module.exports = routes;

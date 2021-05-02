@@ -8,7 +8,7 @@ const app = express();
 
 app.use(session({
     secret: "senhaSecreta",
-    cookie: { maxAge: 30000 }
+    cookie: { maxAge: 300000000000000000 }
 }));
 
 app.set('view engine', 'ejs');

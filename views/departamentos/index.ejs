@@ -23,7 +23,7 @@
                     <td>
                         <a class="btn btn-warning" href="/departamento/edit/<%=departamento.departamento_id %>">Editar</a>
                         
-                        <form action="/departamento/delete/<%=departamento.departamento_id %>" method="POST">
+                        <form action="/departamento/delete/<%=departamento.departamento_id %>" method="POST" onsubmit="confirmDelete(event, this)" style="display: inline;">
                             <input type="hidden" value="<%=departamento.departamento_id %>">
                             <button class="btn btn-danger">Excluir</button>
                         </form>
@@ -35,3 +35,13 @@
 </div>
 
 <%- include('../parts/footer.ejs') %>
+
+<script>
+    function confirmDelete(event, form) {
+        event.preventDefault();
+        var decision = confirm('Você deseja deletar este departamento?');
+        if (decision) {
+            form.submit();
+        }
+    }
+</script>
