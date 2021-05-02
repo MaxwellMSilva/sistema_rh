@@ -1,0 +1,37 @@
+<%- include('../parts/header.ejs') %>
+
+<%- include('../parts/navbar.ejs') %>
+
+<div class="container">
+    <br>
+
+    <hr>
+    <a class="btn btn-primary" href="/departamento/new">Adicionar Departamento</a>
+    <hr>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Departamento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% departamentos.forEach(departamento => { %>
+                <tr>
+                    <td><%=departamento.departamento_nome %></td>
+                    <td>
+                        <a class="btn btn-warning" href="/departamento/edit/<%=departamento.departamento_id %>">Editar</a>
+                        
+                        <form action="/departamento/delete/<%=departamento.departamento_id %>" method="POST">
+                            <input type="hidden" value="<%=departamento.departamento_id %>">
+                            <button class="btn btn-danger">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../parts/footer.ejs') %>

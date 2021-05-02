@@ -1,0 +1,23 @@
+<%- include('../parts/header.ejs') %>
+
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <h4>Atualizar departamento</h4>
+        </div>
+        <div class="card-body">
+            <% departamentos.forEach(departamento => { %>
+                <form action="/departamento/update" method="POST">
+                    <input class="form-control" type="hidden" name="departamento_id" value="<%=departamento.departamento_id %>">
+                    <input class="form-control" type="text" name="departamento_nome" value="<%=departamento.departamento_nome %>"><br>
+                    
+                    <button class="btn btn-success" type="submit">Atualizar Departamento</button>
+                    <a class="btn btn-danger" href="/departamentos">Voltar</a>
+                </form>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<%- include('../parts/footer.ejs') %>

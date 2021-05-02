@@ -1,0 +1,38 @@
+<%- include('../parts/header.ejs') %>
+
+<%- include('../parts/navbar.ejs') %>
+
+<div class="container">
+    <br>
+
+    <hr>
+    <a class="btn btn-primary" href="/funcionario/new">Adicionar Funcionário</a>
+    <hr>
+    
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Função</th>
+                <th>Departamento</th>
+                <th>Salário</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% funcionarios.forEach(funcionario => { %>
+                <tr>
+                    <td><%=funcionario.funcionario_nomeCompleto %></td>
+                    <td><%=funcionario.funcao_nome %></td>
+                    <td><%=funcionario.departamento_nome %></td>
+                    <td><%=funcionario.funcionario_salario %></td>
+                    <td>
+                        <a class="btn btn-warning" href="#">Editar</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../parts/footer.ejs') %>

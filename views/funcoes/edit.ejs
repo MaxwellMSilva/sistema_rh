@@ -1,0 +1,29 @@
+<%- include('../parts/header.ejs') %>
+
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <h4>Atualizar função</h4>
+        </div>
+        <div class="card-body">
+            <% funcoes.forEach(funcao => { %>
+                <form action="/funcao/update" method="POST">
+                    <input type="hidden" name="funcao_id" value="<%=funcao.funcao_id %>">
+                    <input class="form-control" type="text" name="funcao_nome" value="<%=funcao.funcao_nome %>" required><br>
+                    <label>Departamentos:</label>
+                    <select class="form-control" name="funcao_departamento">
+                        <% departamentos.forEach((departamento) => { %>
+                            <option value="<%=departamento.departamento_id %>"><%=departamento.departamento_nome %></option>
+                        <% }) %>
+                    </select>
+                    <br>
+                    <button class="btn btn-success" type="submit">Registrar</button>
+                    <a class="btn btn-danger" href="/funcoes">Voltar</a>
+                </form>
+            <% }) %>
+        </div>
+    </div>
+</div>
+
+<%- include('../parts/footer.ejs') %>

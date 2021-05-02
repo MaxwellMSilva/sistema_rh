@@ -1,0 +1,39 @@
+<%- include('../parts/header.ejs') %>
+
+<%- include('../parts/navbar.ejs') %>
+
+<div class="container">
+    <br>
+
+    <hr>
+    <a class="btn btn-primary" href="/funcao/new">Adicionar Função</a>
+    <hr>
+    
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Função</th>
+                <th>Departamento</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% funcoes.forEach(funcao => { %>
+                <tr>
+                    <td><%=funcao.funcao_nome %></td>
+                    <td><%=funcao.departamento_nome %></td>
+                    <td>
+                        <a class="btn btn-warning" href="/funcao/edit/<%=funcao.funcao_id %>">Editar</a>
+                        
+                        <form action="/funcao/delete/<%=funcao.funcao_id  %>" method="POST">
+                            <input type="hidden" value="<%=funcao.funcao_id %>">
+                            <button class="btn btn-danger">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../parts/footer.ejs') %>

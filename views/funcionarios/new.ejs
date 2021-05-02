@@ -1,0 +1,33 @@
+<%- include('../parts/header.ejs') %>
+
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <h4>Registrar novo funcionário</h4>
+        </div>
+        <div class="card-body">
+            <form action="/funcionario/save" method="POST">
+                <input class="form-control" type="text" name="funcionario_nomeCompleto" placeholder="Nome Completo" required><br>
+                <label>Funções:</label>
+                <select class="form-control" name="funcionario_funcao">
+                    <% funcoes.forEach(funcao => { %>
+                        <option value="<%=funcao.funcao_id %>"><%=funcao.funcao_nome %></option>
+                    <% }) %>
+                </select>
+                <br>
+                <input class="form-control" type="text" name="funcionario_salario" placeholder="Salário do Funcionário" required><br>
+                <input class="form-control" type="date" name="funcionario_dataNascimento" required><br>
+                <input class="form-control" type="text" name="funcionario_naturalidade" placeholder="Naturalidade do Funcionário" required><br>
+                <input class="form-control" type="text" name="funcionario_email" placeholder="Email do Funcionário" required><br>
+                <input class="form-control" type="text" name="funcionario_telefone" placeholder="Telefone do Funcionário" required><br>
+
+
+                <button class="btn btn-success" type="submit">Registrar</button>
+                <a class="btn btn-danger" href="/funcionarios">Voltar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../parts/footer.ejs') %>
