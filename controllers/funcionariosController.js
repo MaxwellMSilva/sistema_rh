@@ -8,14 +8,14 @@ const adminAuth = require('../middlewares/adminAuth');
 
 router.get('/funcionarios', adminAuth, (request, response) => {
     database('departamentos')
-        .join('departamento_funcoes', 'departamento_funcoes.funcao_id', 'departamentos.departamento_id')
-            .innerJoin('funcionarios', 'funcionarios.funcionario_id', 'departamento_funcoes.funcao_id')
+        .join('departamento_funcoes', 'departamento_funcoes.funcao_departamento', 'departamentos.departamento_id')
+            .innerJoin('funcionarios', 'funcionarios.funcionario_funcao', 'departamento_funcoes.funcao_id')
                 .select('*')
                     .then((funcionarios) => {
                         response.render('funcionarios/index', {
                             funcionarios: funcionarios,
                         });
-                    });
+            });
 });
 
 router.get('/funcionario/new', adminAuth, (request, response) => {
@@ -47,11 +47,44 @@ router.post('/funcionario/save', adminAuth, (request, response) => {
             funcionario_email: funcionario_email,
             funcionario_telefone: funcionario_telefone,
         }).then(() => {
-            response.redirect('/informacoes');
+            database('funcionarios')
+                .orderBy('funcionario_id', 'desc')
+                    .first()
+                        .then((funcionario) => {
+                            response.render('funcionarios/informacoes/index', {
+                                funcionario: funcionario
+                            });
+                        });
         }).catch((err) => {
             response.redirect('/funcionario/new');
             console.log(err);   
         });
+});
+
+router.get('/data/:id', adminAuth, (request, response) => {
+    var id = request.params.id;
+
+    database('departamentos')
+        .join('departamento_funcoes', 'departamento_funcoes.funcao_departamento', 'departamentos.departamento_id')
+            .innerJoin('funcionarios', 'funcionarios.funcionario_funcao', 'departamento_funcoes.funcao_id')
+                .where('funcionario_id', id)
+                    .first()
+                        .then((user) => {
+                            response.render('funcionarios/data', {
+                                user: user,
+                            });
+                        });
+});
+
+router.post('/funcionario/delete/:funcionario_id', adminAuth, (request, response) => {
+    var funcionario_id = request.params.funcionario_id;
+
+    database('funcionarios')
+        .where('funcionario_id', funcionario_id)
+            .delete()
+                .then(() => {
+                    response.redirect('/funcionarios');
+                });
 });
 
 module.exports = router;

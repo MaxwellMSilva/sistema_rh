@@ -39,6 +39,8 @@ router.post('/departamento/delete/:departamento_id', adminAuth, (request, respon
             .delete()
                 .then(() => {
                     response.redirect('/departamentos');
+                }).catch(() => {
+                    response.redirect('/departamentos');
                 });
 });
 
@@ -47,10 +49,10 @@ router.get('/departamento/edit/:departamento_id', adminAuth, (request, response)
 
     database('departamentos')
         .where('departamento_id', departamento_id)
-            .select('*')
-                .then((departamentos) => {
+            .first()
+                .then((departamento) => {
                     response.render('departamentos/edit', {
-                        departamentos: departamentos,
+                        departamento: departamento,
                     });
                 });
 });

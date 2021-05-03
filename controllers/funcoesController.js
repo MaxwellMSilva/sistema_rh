@@ -58,13 +58,13 @@ router.get('/funcao/edit/:funcao_id', adminAuth, (request, response) => {
 
     database('departamento_funcoes')
         .where('funcao_id', funcao_id)
-            .select('*')
-                .then((funcoes) => {
+            .first()
+                .then((funcao) => {
                     database('departamentos')
                         .select('*')
-                            .then(departamentos => {
+                            .then((departamentos) => {
                                 response.render('funcoes/edit', {
-                                    funcoes: funcoes,
+                                    funcao: funcao,
                                     departamentos: departamentos,
                                 });
                             });

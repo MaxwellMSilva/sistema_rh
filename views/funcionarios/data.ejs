@@ -1,0 +1,56 @@
+<%- include('../parts/header.ejs') %>
+
+<div class="container">
+    <br>
+    <hr>
+    <a class="btn btn-primary" href="/funcionarios">Voltar</a>
+    
+    <hr>
+    <form action="/funcionario/delete/<%=user.funcionario_id %>" method="POST" onsubmit="confirmDelete(event, this)">
+        <input type="hidden" name="funcionario_id" value="<%=user.funcionario_id %>">
+        <button class="btn btn-danger" href="">Apagar Informação do Funcionário</button>
+    </form>
+    
+    <hr>
+
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h4><%=user.funcionario_nomeCompleto %></h4>
+            </div>
+            <div class="card-body">
+                <h5>Função: </h5>
+                <p><%=user.funcao_nome %></p>
+                <h5>Departamento: </h5>
+                <p><%=user.departamento_nome %></p>
+                <h5>Salário: </h5>
+                <p><%=user.funcionario_salario %></p>
+                <h5>Data de Nascimento: </h5>
+                <p><%=user.funcionario_dataNascimento %></p>
+                <h5>Naturalidade: </h5>
+                <p><%=user.funcionario_naturalidade %></p>
+                <h5>Email: </h5>
+                <p><%=user.funcionario_email %></p>
+                <h5>Telefone para Contato: </h5>
+                <p><%=user.funcionario_telefone %></p>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+
+<%- include('../parts/footer.ejs') %>
+
+<script>
+    function confirmDelete(event, form) {
+        event.preventDefault();
+        var decision = confirm('Você deseja deletar este funcionário?');
+        if (decision) {
+            var confirm_decision = confirm('Você tem certeza? Na vez em que uma informação for deletada, ela não pode ser recuperada!')
+            if (confirm_decision) {
+                form.submit();
+            }
+        }
+    }
+</script>
+

@@ -6,18 +6,7 @@ const database = require('../connection/database');
 
 const adminAuth = require('../middlewares/adminAuth');
 
-router.get('/informacoes', (request, response) => {
-    database('funcionarios')
-        .orderBy('funcionario_id', 'desc')
-            .first()
-                .then((funcionario) => {
-                    response.render('funcionarios/informacoes/index', {
-                        funcionario: funcionario
-                    });
-                });
-});
-
-router.post('/informacoes/save', (request, response) => {
+router.post('/informacoes/save', adminAuth, (request, response) => {
     var endereco_funcionario = request.body.endereco_funcionario;
     var endereco_cep = request.body.endereco_cep;
     var endereco_bairro = request.body.endereco_bairro;
