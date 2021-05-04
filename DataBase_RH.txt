@@ -35,6 +35,7 @@ create table funcionarios (
     foreign key(funcionario_funcao) references departamento_funcoes(funcao_id)
 );
 
+/* funcionario_dataAdmissao, funcionario_dataDemissao */
 /* ==================================================================================== */
 
 create table funcionario_endereco (

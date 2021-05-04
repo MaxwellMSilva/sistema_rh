@@ -3,14 +3,18 @@
 <div class="container">
     <br>
     <hr>
-    <a class="btn btn-primary" href="/funcionarios">Voltar</a>
     
-    <hr>
-    <form action="/funcionario/delete/<%=funcionario.funcionario_id %>" method="POST" onsubmit="confirmDelete(event, this)">
+    <form action="/funcionario/delete/<%=funcionario.funcionario_id %>" method="POST">
         <input type="hidden" name="funcionario_id" value="<%=funcionario.funcionario_id %>">
-        <button class="btn btn-danger" href="">Apagar Informação do Funcionário</button>
+        <button class="btn btn-primary" type="submit">Cancelar Cadastro</button>
     </form>
-    
+    <br>
+    <form action="/cadastro/delete/<%=funcionario.funcionario_id %>" method="POST">
+        <input type="hidden" name="funcionario_id" value="<%=funcionario.funcionario_id %>">
+        <button class="btn btn-warning" type="submit">Refazer Cadastro</button>
+    </form>
+    <br>
+    <a class="btn btn-success" href="/informacoes/<%=funcionario.funcionario_id %>">Continuar</a>
     <hr>
 
     <div class="container">
@@ -43,16 +47,3 @@
 </div>
 
 <%- include('../parts/footer.ejs') %>
-
-<script>
-    function confirmDelete(event, form) {
-        event.preventDefault();
-        var decision = confirm('Você deseja deletar este funcionário?');
-        if (decision) {
-            var confirm_decision = confirm('Você tem certeza? Na vez em que uma informação for deletada, ela não pode ser recuperada!')
-            if (confirm_decision) {
-                form.submit();
-            }
-        }
-    }
-</script>

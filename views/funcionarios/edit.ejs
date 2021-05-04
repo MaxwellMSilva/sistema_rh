@@ -1,0 +1,50 @@
+<%- include('../parts/header.ejs') %>
+
+<div class="container">
+    <br>
+    <div class="card">
+        <div class="card-header">
+            <h4>Registrar novo funcionário</h4>
+        </div>
+        <div class="card-body">
+            <form action="/funcionario/save" method="POST">
+                <input type="hidden" value="<%=funcionario.funcionario_id %>">
+                <input class="form-control" type="text" name="funcionario_nomeCompleto" value="<%=funcionario.funcionario_nomeCompleto %>" required><br>
+                
+                <label>Funções:</label>
+                <select class="form-control" name="funcionario_funcao">
+                    <% funcoes.forEach(funcao => { %>
+                        <% if (funcionario.funcionario_funcao == funcao.funcao_id) { %>} 
+                            <option value="<%=funcao.funcao_id %>" selected><%=funcao.funcao_nome %></option>
+                        <% } else { %>
+                            <option value="<%=funcao.funcao_id %>"><%=funcao.funcao_nome %></option>
+                        <% } %>
+                    <% }) %>
+                </select>
+                <br>
+
+                <input class="form-control" type="text" name="funcionario_salario" value="<%=funcionario.funcionario_salario %>" required><br>
+
+                <select class="form-control" name="funcionario_sexo">
+                    <% if (funcionario.funcionario_sexo == "Masculino") { %>
+                        <option value="<%=funcionario.funcionario_sexo %>" selected><%=funcionario.funcionario_sexo %></option>
+                        <option value="Feminino">Feminino</option>
+                    <% } else if (funcionario.funcionario_sexo == "Feminino") { %>
+                        <option value="<%=funcionario.funcionario_sexo %>" selected><%=funcionario.funcionario_sexo %></option>
+                        <option value="Masculino">Masculino</option>
+                    <% } %>
+                </select>
+                <br>
+
+                <input class="form-control" type="text" name="funcionario_email" value="<%=funcionario.funcionario_email %>" required><br>
+                <input class="form-control" type="text" name="funcionario_telefone" value="<%=funcionario.funcionario_telefone %>" required><br>
+
+
+                <button class="btn btn-success" type="submit">Registrar</button>
+                <a class="btn btn-danger" href="/funcionarios">Voltar</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('../parts/footer.ejs') %>

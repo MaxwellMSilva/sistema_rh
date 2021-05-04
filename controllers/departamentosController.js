@@ -32,19 +32,6 @@ router.post('/departamento/save', adminAuth, (request, response) => {
         });
 });
 
-router.post('/departamento/delete/:departamento_id', adminAuth, (request, response) => {
-    var departamento_id = request.params.departamento_id;
-
-    database('departamentos')
-        .where('departamento_id', departamento_id)
-            .delete()
-                .then(() => {
-                    response.redirect('/departamentos');
-                }).catch(() => {
-                    response.redirect('/departamentos');
-                });
-});
-
 router.get('/departamento/edit/:departamento_id', adminAuth, (request, response) => {
     var departamento_id = request.params.departamento_id;
 
@@ -71,6 +58,19 @@ router.post('/departamento/update', adminAuth, (request, response) => {
             }).catch(() => {
                 response.redirect('/departamentos')
             });
+});
+
+router.post('/departamento/delete/:departamento_id', adminAuth, (request, response) => {
+    var departamento_id = request.params.departamento_id;
+
+    database('departamentos')
+        .where('departamento_id', departamento_id)
+            .delete()
+                .then(() => {
+                    response.redirect('/departamentos');
+                }).catch(() => {
+                    response.redirect('/departamentos');
+                });
 });
 
 module.exports = router;

@@ -174,9 +174,23 @@
 
         <hr>
         <button class="btn btn-success" type="submit">Cadastrar Informações</button>
-        <hr>
-        <br>
     </form>
+    <br>
+    <form action="/funcionario/delete/<%=funcionario.funcionario_id %>" method="POST" onsubmit="confirmDelete(event, this)">
+        <input type="hidden" name="funcionario_id" value="<%=funcionario.funcionario_id %>">
+        <button class="btn btn-primary" type="submit">Cancelar Cadastro</button>
+    </form>
+    <hr>
 </div>
 
 <%- include('../../parts/footer.ejs') %>
+
+<script>
+    function confirmDelete(event, form) {
+        event.preventDefault();
+        var decision = confirm('Você deseja cancelar este cadastro?');
+        if (decision) {
+            form.submit();
+        }
+    }
+</script>
