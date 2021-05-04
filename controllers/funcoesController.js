@@ -9,12 +9,13 @@ const adminAuth = require('../middlewares/adminAuth');
 router.get('/funcoes', adminAuth, (request, response) => {
     database('departamentos')
         .join('departamento_funcoes', 'departamento_funcoes.funcao_departamento', 'departamentos.departamento_id')
-            .select('*')
-                .then((funcoes) => {
-                    response.render('funcoes/index', {
-                        funcoes: funcoes,
+            .orderBy('funcao_id', 'desc')
+                .select('*')
+                    .then((funcoes) => {
+                        response.render('funcoes/index', {
+                            funcoes: funcoes,
+                        });
                     });
-                });
 });
 
 router.get('/funcao/new', adminAuth, (request, response) => {
@@ -68,7 +69,7 @@ router.get('/funcao/edit/:funcao_id', adminAuth, (request, response) => {
                                     departamentos: departamentos,
                                 });
                             });
-                });
+                    });
 });
 
 router.post('/funcao/update', adminAuth, (request, response) => {

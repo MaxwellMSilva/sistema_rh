@@ -26,6 +26,7 @@
                 <input class="form-control" type="hidden" name="rg_funcionario" value="<%=funcionario.funcionario_id %>">
                 <input class="form-control" type="text" minlength="7" maxlength="7" name="rg_numero" placeholder="Número do RG" required><br>
                 <input class="form-control" type="text" name="rg_orgaoExpedidor" placeholder="Órgão Expedidor" required><br>
+                <label>RG Data de Expedição:</label>
                 <input class="form-control" type="date" name="rg_dataExpedicao" required>
             </div>
         </div>
@@ -61,9 +62,40 @@
                 <input class="form-control" type="hidden" name="titulo_funcionario" value="<%=funcionario.funcionario_id %>">
                 <input class="form-control" type="text" minlength="12" maxlength="12" name="titulo_numeroInscricao" placeholder="Número de Inscrição" required><br>
                 <input class="form-control" type="text" minlength="3" maxlength="3" name="titulo_zona" placeholder="Zona" required><br>
-                <input class="form-control" type="text" minlength="2" maxlength="2" name="titulo_uf" placeholder="UF" required><br>
+                <label>Título de Eleitor UF:</label>
+                <select class="form-control" name="titulo_uf">
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                </select>
+                <br>
                 <input class="form-control" type="text" name="titulo_municipio" placeholder="Título Município" required><br>
-                <input class="form-control" type="date" name="titulo_dataEmissao" placeholder="Data de Emissão" required>
+                <label>Título de Eleitor Data de Emissão:</label>
+                <input class="form-control" type="date" name="titulo_dataEmissao" required>
             </div>
         </div>
         <br>
@@ -76,7 +108,37 @@
                 <input class="form-control" type="hidden" name="ctps_funcionario" value="<%=funcionario.funcionario_id %>">
                 <input class="form-control" type="text" minlength="7" maxlength="7" name="ctps_numero" placeholder="CTPS Número" required><br>
                 <input class="form-control" type="text" minlength="4" maxlength="4" name="ctps_serie" placeholder="CTPS Série" required><br>
-                <input class="form-control" type="text" minlength="2" maxlength="2" name="ctps_uf" placeholder="CTPS UF" required>
+                <label>CTPS UF:</label>
+                <select class="form-control" name="ctps_uf">
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                </select>
+                <br>
             </div>
         </div>
         <br>
@@ -88,6 +150,9 @@
             <div class="card-body">
                 <input class="form-control" type="hidden" name="reservista_funcionario" value="<%=funcionario.funcionario_id %>">
                 <input class="form-control" type="text" minlength="12" maxlength="12" name="reservista_ra" placeholder="Reservista RA" required><br>
+                <input class="form-control" type="text" name="reservista_localNascimento" placeholder="Local de Nascimento" required><br>
+                <label>Data de Nascimento:</label>
+                <input class="form-control" type="date" name="reservista_dataNascimento" required><br>
                 <input class="form-control" type="text" name="reservista_filiacaoMae" placeholder="Filiação Mãe"><br>
                 <input class="form-control" type="text" name="reservista_filiacaoPai" placeholder="Filiação Pai">
             </div>

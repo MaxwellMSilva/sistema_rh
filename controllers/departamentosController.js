@@ -8,12 +8,13 @@ const adminAuth = require('../middlewares/adminAuth');
 
 router.get('/departamentos', adminAuth, (request, response) => {
     database('departamentos')
-        .select('*')
-            .then((departamentos) => {
-                response.render('departamentos/index', {
-                    departamentos: departamentos,
+        .orderBy('departamento_id', 'desc')
+            .select('*')
+                .then((departamentos) => {
+                    response.render('departamentos/index', {
+                        departamentos: departamentos,
+                    });
                 });
-            });
 });
 
 router.get('/departamento/new', adminAuth, (request, response) => {
@@ -28,7 +29,7 @@ router.post('/departamento/save', adminAuth, (request, response) => {
             departamento_nome: departamento_nome,
         }).then(() => {
             response.redirect('/departamentos');
-        })
+        });
 });
 
 router.post('/departamento/delete/:departamento_id', adminAuth, (request, response) => {
