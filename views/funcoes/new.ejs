@@ -1,26 +1,27 @@
 <%- include('../parts/header.ejs') %>
 
-<div class="container">
+<div class="ui container">
     <br>
-    <div class="card">
-        <div class="card-header">
-            <h4>Criar nova função</h4>
+    <form class="ui form" action="/funcoes/save" method="POST">
+        <div class="field">
+            <div class="two fields">
+                <div class="field">
+                    <label>Criar nova função</label>
+                    <input type="text" name="funcao_nome" placeholder="Nome da Função" required>
+                </div>
+                <div class="field">
+                    <label>Selecionar Departamento:</label>
+                    <select class="ui fluid dropdown" name="funcao_departamento">
+                        <% departamentos.forEach((departamento) => { %>
+                            <option value="<%=departamento.departamento_id %>"><%=departamento.departamento_nome %></option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <form action="/funcoes/save" method="POST">
-                <input class="form-control" type="text" name="funcao_nome" placeholder="Nome da Função" required><br>
-                <label>Departamentos:</label>
-                <select class="form-control" name="funcao_departamento">
-                    <% departamentos.forEach((departamento) => { %>
-                        <option value="<%=departamento.departamento_id %>"><%=departamento.departamento_nome %></option>
-                    <% }) %>
-                </select>
-                <br>
-                <button class="btn btn-success" type="submit">Registrar</button>
-                <a class="btn btn-danger" href="/funcoes">Voltar</a>
-            </form>
-        </div>
-    </div>
+        <a class="ui button" href="/funcoes">Voltar</a>
+        <button class="ui button green" type="submit">Registrar Departamento</button>
+    </form>
 </div>
 
 <%- include('../parts/footer.ejs') %>

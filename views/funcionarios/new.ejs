@@ -1,36 +1,52 @@
 <%- include('../parts/header.ejs') %>
 
-<div class="container">
-    <br>
-    <div class="card">
-        <div class="card-header">
-            <h4>Registrar novo funcionário</h4>
-        </div>
-        <div class="card-body">
-            <form action="/funcionario/save" method="POST">
-                <input class="form-control" type="text" name="funcionario_nomeCompleto" placeholder="Nome Completo" required><br>
-                <label>Funções:</label>
-                <select class="form-control" name="funcionario_funcao">
-                    <% funcoes.forEach(funcao => { %>
-                        <option value="<%=funcao.funcao_id %>"><%=funcao.funcao_nome %></option>
-                    <% }) %>
-                </select>
-                <br>
-                <input class="form-control" type="text" name="funcionario_salario" placeholder="Salário do Funcionário" required><br>
-                <select class="form-control" name="funcionario_sexo">
-                    <option value="Masculino">Masculino</option>
-                    <option value="Feminino">Feminino</option>
-                </select>
-                <br>
-                <input class="form-control" type="text" name="funcionario_email" placeholder="Email do Funcionário" required><br>
-                <input class="form-control" type="text" name="funcionario_telefone" placeholder="Telefone do Funcionário" required><br>
-
-
-                <button class="btn btn-success" type="submit">Registrar</button>
-                <a class="btn btn-danger" href="/funcionarios">Voltar</a>
-            </form>
-        </div>
+    <div class="ui container">
+        <br>
+        <form class="ui form" action="/funcionario/save" method="POST">
+            <div class="field">
+                <div class="two fields">
+                    <div class="field">
+                        <label>Nome Completo:</label>
+                        <input type="text" name="funcionario_nomeCompleto" placeholder="Nome Completo" required>
+                    </div>
+                    <div class="field">
+                        <label>Funções:</label>
+                        <select name="funcionario_funcao">
+                            <% funcoes.forEach(funcao=> { %>
+                                <option value="<%=funcao.funcao_id %>">
+                                    <%=funcao.funcao_nome %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>
+                </div>
+                <div class="three fields">
+                    <div class="field">
+                        <input type="text" name="funcionario_salario" placeholder="Salário do Funcionário" required><br>
+                    </div>
+                    <div class="field">
+                        <input type="date" name="funcionario_dataAdmissao" required><br>
+                    </div>
+                    <div class="field">
+                        <select name="funcionario_sexo">
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="two fields">
+                    <div class="field">
+                        <input type="text" name="funcionario_email" placeholder="Email do Funcionário" required><br>
+                    </div>
+                    <div class="field">
+                        <input type="text" name="funcionario_telefone" placeholder="Telefone do Funcionário"
+                            required><br>
+                    </div>
+                </div>
+            </div>
+            <a class="ui button" href="/funcionarios">Voltar</a>
+            <button class="ui button green" type="submit">Registrar</button>
+        </form>
     </div>
-</div>
 
-<%- include('../parts/footer.ejs') %>
+    <%- include('../parts/footer.ejs') %>
