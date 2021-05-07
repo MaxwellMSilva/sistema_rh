@@ -2,19 +2,18 @@
 
 <%- include('../parts/navbar.ejs') %>
 
-<div class="container">
-    <br>
-
-    <hr>
-    <a class="btn btn-primary" href="/funcao/new">Adicionar Função</a>
-    <hr>
-    
-    <table class="table table-bordered">
+<div class="ui container">
+    <div class="containerButton">
+        <a class="positive ui button right floated" href="/funcao/new" style="margin: 10px 0;">
+            Adicionar Função
+        </a>
+    </div>
+    <table class="ui striped table">
         <thead>
             <tr>
                 <th>Função</th>
                 <th>Departamento</th>
-                <th>Ações</th>
+                <th class="right aligned">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -22,12 +21,19 @@
                 <tr>
                     <td><%=funcao.funcao_nome %></td>
                     <td><%=funcao.departamento_nome %></td>
-                    <td>
-                        <a class="btn btn-warning" href="/funcao/edit/<%=funcao.funcao_id %>">Editar</a>
-                        
+
+                    <td class="right aligned">
+                        <a class="ui icon button blue" href="/funcao/edit/<%=funcao.funcao_id %>">
+                            <i class="edit icon"></i>
+                            Editar
+                        </a>
+    
                         <form action="/funcao/delete/<%=funcao.funcao_id  %>" method="POST" onsubmit="confirmDelete(event, this)" style="display: inline;">
                             <input type="hidden" value="<%=funcao.funcao_id %>">
-                            <button class="btn btn-danger">Excluir</button>
+                            <button class="ui icon button red">
+                                <i class="delete icon"></i>
+                                Excluir
+                            </button>
                         </form>
                     </td>
                 </tr>

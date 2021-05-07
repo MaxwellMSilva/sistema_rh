@@ -2,30 +2,38 @@
 
 <%- include('../parts/navbar.ejs') %>
 
-<div class="container">
-    <br>
-
-    <hr>
-    <a class="btn btn-primary" href="/departamento/new">Adicionar Departamento</a>
-    <hr>
-
-    <table class="table table-bordered">
+<div class="ui container">
+    <div class="containerButton">
+        <a class="positive ui button right floated" href="/departamento/new" style="margin: 10px 0;">
+            Adicionar Departamento
+        </a>
+    </div>
+    <table class="ui striped table">
         <thead>
             <tr>
                 <th>Departamento</th>
-                <th>Ações</th>
+                <th class="right aligned">Ação</th>
             </tr>
         </thead>
         <tbody>
-            <% departamentos.forEach(departamento => { %>
+            <% departamentos.forEach(departamento=> { %>
                 <tr>
-                    <td><%=departamento.departamento_nome %></td>
                     <td>
-                        <a class="btn btn-warning" href="/departamento/edit/<%=departamento.departamento_id %>">Editar</a>
-                        
-                        <form action="/departamento/delete/<%=departamento.departamento_id %>" method="POST" onsubmit="confirmDelete(event, this)" style="display: inline;">
+                        <%=departamento.departamento_nome %>
+                    </td>
+                    <td class="right aligned">
+                        <a class="ui icon button blue" href="/departamento/edit/<%=departamento.departamento_id %>">
+                            <i class="edit icon"></i>
+                            Editar
+                        </a>
+    
+                        <form action="/departamento/delete/<%=departamento.departamento_id %>" method="POST"
+                            onsubmit="confirmDelete(event, this)" style="display: inline;">
                             <input type="hidden" value="<%=departamento.departamento_id %>">
-                            <button class="btn btn-danger">Excluir</button>
+                            <button class="ui icon button red">
+                                <i class="delete icon"></i>
+                                Excluir
+                            </button>
                         </form>
                     </td>
                 </tr>

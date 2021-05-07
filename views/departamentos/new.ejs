@@ -1,19 +1,15 @@
 <%- include('../parts/header.ejs') %>
 
-<div class="container">
-    <br>
-    <div class="card">
-        <div class="card-header">
-            <h4>Criar novo departamento</h4>
-        </div>
-        <div class="card-body">
-            <form action="/departamento/save" method="POST">
-                <input class="form-control" type="text" name="departamento_nome" placeholder="Nome do Departamento" required><br>
-                <button class="btn btn-success" type="submit">Registrar Departamento</button>
-                <a class="btn btn-danger" href="/departamentos">Voltar</a>
-            </form>
-        </div>
+    <div class="ui container">
+        <br>
+        <form class="ui form" action="/departamento/save" method="POST">
+            <div class="field">
+                <label>Adicionar Departamento</label>
+                <input type="text" name="departamento_nome" placeholder="Nome do Departamento">
+            </div>
+            <a class="ui button" href="/departamentos">Voltar</a>
+            <button class="ui button green" type="submit">Registrar Departamento</button>
+        </form>
     </div>
-</div>
 
-<%- include('../parts/footer.ejs') %>
+    <%- include('../parts/footer.ejs') %>

@@ -2,21 +2,20 @@
 
 <%- include('../parts/navbar.ejs') %>
 
-<div class="container">
-    <br>
-
-    <hr>
-    <a class="btn btn-primary" href="/funcionario/new">Adicionar Funcionário</a>
-    <hr>
-    
-    <table class="table table-bordered">
+<div class="ui container">
+    <div class="containerButton">
+        <a class="positive ui button right floated" href="/funcionario/new" style="margin: 10px 0;">
+            Adicionar Funcionário
+        </a>
+    </div>
+    <table class="ui striped table">
         <thead>
             <tr>
                 <th>Nome</th>
                 <th>Função</th>
                 <th>Departamento</th>
                 <th>Salário</th>
-                <th>Ações</th>
+                <th class="right aligned">Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -26,8 +25,12 @@
                     <td><%=funcionario.departamento_nome %></td>
                     <td><%=funcionario.funcao_nome %></td>
                     <td><%=funcionario.funcionario_salario %></td>
-                    <td>
-                        <a class="btn btn-primary" href="/data/<%=funcionario.funcionario_id %>">Visualizar</a>
+
+                    <td class="right aligned">
+                        <a class="ui icon button blue" href="/data/<%=funcionario.funcionario_id %>">
+                            <i class="eye icon"></i>
+                            Visualizar
+                        </a>
                     </td>
                 </tr>
             <% }) %>

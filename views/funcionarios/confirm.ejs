@@ -1,49 +1,76 @@
 <%- include('../parts/header.ejs') %>
 
-<div class="container">
-    <br>
-    <hr>
-    
-    <form action="/funcionario/delete/<%=funcionario.funcionario_id %>" method="POST">
-        <input type="hidden" name="funcionario_id" value="<%=funcionario.funcionario_id %>">
-        <button class="btn btn-primary" type="submit">Cancelar Cadastro</button>
-    </form>
-    <br>
-    <form action="/cadastro/delete/<%=funcionario.funcionario_id %>" method="POST">
-        <input type="hidden" name="funcionario_id" value="<%=funcionario.funcionario_id %>">
-        <button class="btn btn-warning" type="submit">Refazer Cadastro</button>
-    </form>
-    <br>
-    <a class="btn btn-success" href="/informacoes/<%=funcionario.funcionario_id %>">Continuar</a>
-    <hr>
-
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h4><%=funcionario.funcionario_nomeCompleto %></h4>
+    <div class="ui container">
+        <div class="container-option" style="margin: 10px 0;">
+            <form action="/funcionario/delete/<%=funcionario.funcionario_id %>" method="POST">
+                <input type="hidden" name="funcionario_id" value="<%=funcionario.funcionario_id %>">
+                <button class="ui button red left floated" type="submit">Cancelar Cadastro</button>
+            </form>
+            <!-- <form action="/cadastro/delete/<%=funcionario.funcionario_id %>" method="POST">
+                <input type="hidden" name="funcionario_id" value="<%=funcionario.funcionario_id %>">
+                <button class="ui button yallow center floated" type="submit">Refazer Cadastro</button>
+            </form> -->
+            <a class="ui button green right floated" href="/informacoes/<%=funcionario.funcionario_id %>">Continuar</a>
+        </div>
+        <div class="ui card" style="min-width: 100%; margin-top: 20px;">
+            <div class="header">
+                <h4>
+                    <%=funcionario.funcionario_nomeCompleto %>
+                </h4>
             </div>
-            <div class="card-body">
-                <h5>Função: </h5>
-                <p><%=funcionario.funcao_nome %></p>
-
-                <h5>Departamento: </h5>
-                <p><%=funcionario.departamento_nome %></p>
-
-                <h5>Salário: </h5>
-                <p><%=funcionario.funcionario_salario %></p>
-
-                <h5>Sexo: </h5>
-                <p><%=funcionario.funcionario_sexo %></p>
-
-                <h5>Email: </h5>
-                <p><%=funcionario.funcionario_email %></p>
-
-                <h5>Telefone para Contato: </h5>
-                <p><%=funcionario.funcionario_telefone %></p>
+            <div class="description">
+                <div class="ui very relaxed horizontal list">
+                    <div class="item">
+                        <div class="content">
+                            <p class="header">Função: </p>
+                            <p class="description">
+                                <%=funcionario.funcao_nome %>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="content">
+                            <p class="header">Departamento: </p>
+                            <p class="description">
+                                <%=funcionario.departamento_nome %>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="content">
+                            <p class="header">Salário: </p>
+                            <p class="description">
+                                <%=funcionario.funcionario_salario %>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="header">Data de Admissão: </div>
+                        <p>
+                            <%=funcionario.funcionario_dataAdmissao %>
+                        </p>
+                    </div>
+                    <div class="item">
+                        <div class="header">Sexo: </div>
+                        <p>
+                            <%=funcionario.funcionario_sexo %>
+                        </p>
+                    </div>
+                    <div class="item">
+                        <div class="header">Email: </div>
+                        <p>
+                            <%=funcionario.funcionario_email %>
+                        </p>
+                    </div>
+                    <div class="item">
+                        <div class="header">Telefone para Contato: </div>
+                        <p>
+                            <%=funcionario.funcionario_telefone %>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <br>
-</div>
 
-<%- include('../parts/footer.ejs') %>
+    <%- include('../parts/footer.ejs') %>
