@@ -143,27 +143,29 @@
             </div>
         </div>
 
-        <h4 class="ui dividing header">Reservista</h4>
-        <div class="three fields">
-            <div class="field">
-                <input class="form-control" type="hidden" name="reservista_funcionario" value="<%=funcionario.funcionario_id %>">
-                <input class="form-control" type="text" minlength="12" maxlength="12" name="reservista_ra" placeholder="Reservista RA" required><br>
+        <% if (funcionario.funcionario_sexo == "Masculino") { %>
+            <h4 class="ui dividing header">Reservista</h4>
+            <div class="three fields">
+                <div class="field">
+                    <input class="form-control" type="hidden" name="reservista_funcionario" value="<%=funcionario.funcionario_id %>">
+                    <input class="form-control" type="text" minlength="12" maxlength="12" name="reservista_ra" placeholder="Reservista RA" required><br>
+                </div>
+                <div class="field">
+                    <input class="form-control" type="text" name="reservista_localNascimento" placeholder="Local de Nascimento" required><br>
+                </div>
+                <div class="field">
+                    <input class="form-control" type="date" name="reservista_dataNascimento" required><br>
+                </div>
             </div>
-            <div class="field">
-                <input class="form-control" type="text" name="reservista_localNascimento" placeholder="Local de Nascimento" required><br>
+            <div class="two fields">
+                <div class="field">
+                    <input class="form-control" type="text" name="reservista_filiacaoMae" placeholder="Filiação Mãe"><br>
+                </div>
+                <div class="field">
+                    <input class="form-control" type="text" name="reservista_filiacaoPai" placeholder="Filiação Pai">
+                </div>
             </div>
-            <div class="field">
-                <input class="form-control" type="date" name="reservista_dataNascimento" required><br>
-            </div>
-        </div>
-        <div class="two fields">
-            <div class="field">
-                <input class="form-control" type="text" name="reservista_filiacaoMae" placeholder="Filiação Mãe"><br>
-            </div>
-            <div class="field">
-                <input class="form-control" type="text" name="reservista_filiacaoPai" placeholder="Filiação Pai">
-            </div>
-        </div>
+        <% } %>
 
         <h4 class="ui dividing header">Informações Bancárias</h4>
         <div class="three fields">
@@ -180,13 +182,14 @@
         </div>
 
         <div style="padding: 50px 0;">
-        <button class="ui button green right floated" type="submit">Cadastrar Informações</button>
+            <button class="ui button green right floated" type="submit">Cadastrar Informações</button>
+        </div>
     </form>
+
     <form action="/funcionario/delete/<%=funcionario.funcionario_id %>" method="POST" onsubmit="confirmDelete(event, this)">
         <input type="hidden" name="funcionario_id" value="<%=funcionario.funcionario_id %>">
         <button class="ui button red left floated" type="submit">Cancelar Cadastro</button>
     </form>
-</div>
 </div>
 
 <%- include('../../parts/footer.ejs') %>

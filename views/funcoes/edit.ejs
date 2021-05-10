@@ -1,36 +1,36 @@
 <%- include('../parts/header.ejs') %>
 
-    <div class="ui container">
-        <br>
-        <form class="ui form" action="/funcao/update" method="POST">
-            <div class="field">
-                <div class="two fields">
-                    <div class="field">
-                        <label>Criar nova função</label>
-                        <input type="hidden" name="funcao_id" value="<%=funcao.funcao_id %>">
-                        <input type="text" name="funcao_nome" value="<%=funcao.funcao_nome %>" required><br>
-                    </div>
-                    <div class="field">
-                        <label>Selecionar Departamento:</label>
-                        <select class="ui fluid dropdown" name="funcao_departamento">
-                            <% departamentos.forEach(departamento=> { %>
-                                <% if (funcao.funcao_departamento==departamento.departamento_id) { %>
-                                    <option value="<%=departamento.departamento_id %>" selected>
-                                        <%=departamento.departamento_nome %>
-                                    </option>
-                                    <% } else { %>
-                                        <option value="<%=departamento.departamento_id %>">
-                                            <%=departamento.departamento_nome %>
-                                        </option>
-                                        <% } %>
-                                            <% }) %>
-                        </select>
-                    </div>
+<div class="ui container">
+    <br>
+    <form class="ui form" action="/funcao/update" method="POST">
+        <div class="field">
+            <div class="two fields">
+                <div class="field">
+                    <label>Criar nova função</label>
+                    <input type="hidden" name="funcao_id" value="<%=funcao.funcao_id %>">
+                    <input type="text" name="funcao_nome" value="<%=funcao.funcao_nome %>" required><br>
+                </div>
+                <div class="field">
+                    <label>Selecionar Departamento:</label>
+                    <select class="ui fluid dropdown" name="funcao_departamento">
+                        <% departamentos.forEach(departamento=> { %>
+                            <% if (funcao.funcao_departamento == departamento.departamento_id) { %>
+                                <option value="<%=departamento.departamento_id %>" selected>
+                                    <%=departamento.departamento_nome %>
+                                </option>
+                            <% } else { %>
+                                <option value="<%=departamento.departamento_id %>">
+                                    <%=departamento.departamento_nome %>
+                                </option>
+                            <% } %>
+                        <% }) %>
+                    </select>
                 </div>
             </div>
-            <a class="ui button" href="/funcoes">Voltar</a>
-            <button class="ui button green" type="submit">Registrar Departamento</button>
-        </form>
-    </div>
+        </div>
+        <a class="ui button" href="/funcoes">Voltar</a>
+        <button class="ui button green" type="submit">Registrar Departamento</button>
+    </form>
+</div>
 
-    <%- include('../parts/footer.ejs') %>
+<%- include('../parts/footer.ejs') %>

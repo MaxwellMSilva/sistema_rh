@@ -32,6 +32,7 @@ router.get('/funcionario/new', adminAuth, (request, response) => {
 router.post('/funcionario/save', adminAuth, (request, response) => {
     var funcionario_nomeCompleto = request.body.funcionario_nomeCompleto;
     var funcionario_funcao = request.body.funcionario_funcao;
+    var funcionario_dataAdmissao = request.body.funcionario_dataAdmissao;
     var funcionario_salario = request.body.funcionario_salario;
     var funcionario_sexo = request.body.funcionario_sexo;
     var funcionario_email = request.body.funcionario_email;
@@ -41,6 +42,7 @@ router.post('/funcionario/save', adminAuth, (request, response) => {
         .insert({
             funcionario_nomeCompleto: funcionario_nomeCompleto,
             funcionario_funcao: funcionario_funcao,
+            funcionario_dataAdmissao: funcionario_dataAdmissao,
             funcionario_salario: funcionario_salario,
             funcionario_sexo: funcionario_sexo,
             funcionario_email: funcionario_email,
@@ -101,6 +103,34 @@ router.get('/funcionario/edit/:funcionario_id', adminAuth, (request, response) =
                                 })
                             })
                 });
+});
+
+router.post('/funcionario/update', adminAuth, (request, response) => {
+    var funcionario_id = request.body.funcionario_id;
+    var funcionario_nomeCompleto = request.body.funcionario_nomeCompleto;
+    var funcionario_funcao = request.body.funcionario_funcao;
+    var funcionario_dataAdmissao = request.body.funcionario_dataAdmissao;
+    var funcionario_salario = request.body.funcionario_salario;
+    var funcionario_sexo = request.body.funcionario_sexo;
+    var funcionario_email = request.body.funcionario_email;
+    var funcionario_telefone = request.body.funcionario_telefone;
+
+    database('funcionarios')
+        .where('funcionario_id', funcionario_id)
+            .update({
+                funcionario_id: funcionario_id,
+                funcionario_nomeCompleto: funcionario_nomeCompleto,
+                funcionario_funcao: funcionario_funcao,
+                funcionario_dataAdmissao: funcionario_dataAdmissao,
+                funcionario_salario: funcionario_salario,
+                funcionario_sexo: funcionario_sexo,
+                funcionario_email: funcionario_email,
+                funcionario_telefone: funcionario_telefone,
+            }).then(() => {
+                response.redirect('/funcionarios');
+            }).catch(() => {
+                response.redirect('/funcionarios');
+            });
 });
 
 router.post('/funcionario/delete/:funcionario_id', adminAuth, (request, response) => {

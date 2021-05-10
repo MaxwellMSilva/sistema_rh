@@ -1,6 +1,6 @@
-drop database sistema_rh;
-create database sistema_rh;
-use sistema_rh;
+drop database database_rh;
+create database database_rh;
+use database_rh;
 
 create table adm (
 	id int auto_increment,
@@ -28,6 +28,7 @@ create table funcionarios (
     funcionario_nomeCompleto varchar(255) not null,
     funcionario_funcao int not null, /* FOREIGN KEY */
     funcionario_salario varchar(255) not null,
+    funcionario_dataAdmissao varchar(255),
     funcionario_sexo enum('Masculino', 'Feminino') not null,
     funcionario_email varchar(255) not null,
     funcionario_telefone int not null,
@@ -35,7 +36,6 @@ create table funcionarios (
     foreign key(funcionario_funcao) references departamento_funcoes(funcao_id)
 );
 
-/* funcionario_dataAdmissao, funcionario_dataDemissao */
 /* ==================================================================================== */
 
 create table funcionario_endereco (

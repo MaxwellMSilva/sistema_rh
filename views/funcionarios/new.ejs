@@ -1,52 +1,51 @@
 <%- include('../parts/header.ejs') %>
 
-    <div class="ui container">
-        <br>
-        <form class="ui form" action="/funcionario/save" method="POST">
-            <div class="field">
-                <div class="two fields">
-                    <div class="field">
-                        <label>Nome Completo:</label>
-                        <input type="text" name="funcionario_nomeCompleto" placeholder="Nome Completo" required>
-                    </div>
-                    <div class="field">
-                        <label>Funções:</label>
-                        <select name="funcionario_funcao">
-                            <% funcoes.forEach(funcao=> { %>
-                                <option value="<%=funcao.funcao_id %>">
-                                    <%=funcao.funcao_nome %>
-                                </option>
-                                <% }) %>
-                        </select>
-                    </div>
+<div class="ui container">
+    <br>
+    <form class="ui form" action="/funcionario/save" method="POST">
+        <div class="field">
+            <div class="two fields">
+                <div class="field">
+                    <label>Nome Completo:</label>
+                    <input type="text" name="funcionario_nomeCompleto" placeholder="Nome Completo" required>
                 </div>
-                <div class="three fields">
-                    <div class="field">
-                        <input type="text" name="funcionario_salario" placeholder="Salário do Funcionário" required><br>
-                    </div>
-                    <div class="field">
-                        <input type="date" name="funcionario_dataAdmissao" required><br>
-                    </div>
-                    <div class="field">
-                        <select name="funcionario_sexo">
-                            <option value="Masculino">Masculino</option>
-                            <option value="Feminino">Feminino</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="two fields">
-                    <div class="field">
-                        <input type="text" name="funcionario_email" placeholder="Email do Funcionário" required><br>
-                    </div>
-                    <div class="field">
-                        <input type="text" name="funcionario_telefone" placeholder="Telefone do Funcionário"
-                            required><br>
-                    </div>
+                <div class="field">
+                    <label>Funções:</label>
+                    <select name="funcionario_funcao">
+                        <% funcoes.forEach(funcao=> { %>
+                            <option value="<%=funcao.funcao_id %>">
+                        <%=funcao.funcao_nome %>
+                            </option>
+                        <% }) %>
+                    </select>
                 </div>
             </div>
-            <a class="ui button" href="/funcionarios">Voltar</a>
-            <button class="ui button green" type="submit">Registrar</button>
-        </form>
-    </div>
+            <div class="three fields">
+                <div class="field">
+                    <input type="date" name="funcionario_dataAdmissao" required><br>
+                </div>
+                <div class="field">
+                    <input type="text" name="funcionario_salario" placeholder="Salário do Funcionário" required><br>
+                </div>
+                <div class="field">
+                    <select name="funcionario_sexo">
+                        <option value="Masculino">Masculino</option>
+                        <option value="Feminino">Feminino</option>
+                    </select>
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <input type="email" name="funcionario_email" placeholder="Email do Funcionário" required><br>
+                </div>
+                <div class="field">
+                    <input type="text" name="funcionario_telefone" placeholder="Telefone do Funcionário" required><br>
+                </div>
+            </div>
+        </div>
+        <a class="ui button" href="/funcionarios">Voltar</a>
+        <button class="ui button green" type="submit">Registrar</button>
+    </form>
+</div>
 
-    <%- include('../parts/footer.ejs') %>
+<%- include('../parts/footer.ejs') %>
