@@ -3,57 +3,249 @@
 <div class="ui container">
     <br>
     <form class="ui form" action="/funcionario/update" method="POST">
-        <input type="hidden" name="funcionario_id" value="<%=funcionario.funcionario_id %>">
         <div class="field">
             <div class="two fields">
                 <div class="field">
+                    <input type="hidden" name="funcionario_id" value="<%=data.funcionario_id %>">
                     <label>Nome Completo:</label>
-                    <input type="text" name="funcionario_nomeCompleto" value="<%=funcionario.funcionario_nomeCompleto %>" required>
+                    <input type="text" name="funcionario_nomeCompleto" value="<%=data.funcionario_nomeCompleto %>" required>
                 </div>
                 <div class="field">
                     <label>Funções:</label>
                     <select name="funcionario_funcao">
                         <% funcoes.forEach(funcao=> { %>
-                            <% if (funcionario.funcionario_funcao == funcoes.funcao_id) { %>
+                            <% if (data.funcionario_funcao == funcao.funcao_id) { %>
                                 <option value="<%=funcao.funcao_id %>" selected><%=funcao.funcao_nome %></option>
                             <% } else { %>
-                                <option value="<%=funcao.funcao_id %>" selected><%=funcao.funcao_nome %></option>
-                            <% } %>
+                                <option value="<%=funcao.funcao_id %>"><%=funcao.funcao_nome %></option>
+                            <%} %>
                         <% }) %>
                     </select>
                 </div>
             </div>
             <div class="three fields">
                 <div class="field">
-                    <input type="date" name="funcionario_dataAdmissao" value="<%=funcionario.funcionario_dataAdmissao %>" required><br>
+                    <input type="date" name="funcionario_dataAdmissao" value="<%=data.funcionario_dataAdmissao %>" required><br>
                 </div>
                 <div class="field">
-                    <input type="text" name="funcionario_salario" value="<%=funcionario.funcionario_salario %>" required><br>
+                    <input type="text" name="funcionario_salario" value="<%=data.funcionario_salario %>" required><br>
                 </div>
                 <div class="field">
-                    <select name="funcionario_sexo">
-                        <% if (funcionario.funcionario_sexo == "Masculino") { %>
-                            <option value="<%=funcionario.funcionario_sexo %>" selected><%=funcionario.funcionario_sexo %></option>
-                            <option value="Feminino">Feminino</option>
-                        <% } else if (funcionario.funcionario_sexo == "Feminino") { %>
-                            <option value="<%=funcionario.funcionario_sexo %>" selected><%=funcionario.funcionario_sexo %></option>
-                            <option value="Masculino">Masculino</option>
-                        <% } %>
+                    <select name="funcionario_sexo" id="sexo" onchange="mostrarReservista()">
+                        <option value="Masculino">Masculino</option>
+                        <option value="Feminino">Feminino</option>
                     </select>
                 </div>
             </div>
             <div class="two fields">
                 <div class="field">
-                    <input type="email" name="funcionario_email" value="<%=funcionario.funcionario_email %>" required><br>
+                    <input type="email" name="funcionario_email" value="<%=data.funcionario_email %>" required><br>
                 </div>
                 <div class="field">
-                    <input type="text" name="funcionario_telefone" value="<%=funcionario.funcionario_telefone %>" required><br>
+                    <input type="text" name="funcionario_telefone" value="<%=data.funcionario_telefone %>" required><br>
+                </div>
+            </div>
+
+            <h4 class="ui dividing header">Endereço</h4>
+            <div class="three fields">
+                <input type="hidden" name="endereco_id" value="<%=data.endereco_id %>">
+                <div class="field">
+                    <input type="text" minlength="8" maxlength="8" name="endereco_cep" value="<%=data.endereco_cep %>" required>
+                </div>
+                <div class="field">
+                    <input type="text" name="endereco_bairro" value="<%=data.endereco_bairro %>" required><br>
+                </div>
+                <div class="field">
+                    <input type="text" name="endereco_rua" value="<%=data.endereco_rua %>" required><br>
+                </div>
+                <div class="field">
+                    <input type="number" name="endereco_numero" value="<%=data.endereco_numero %>" required>
+                </div>
+            </div>
+            <h4 class="ui dividing header">RG</h4>
+            <div class="three fields">
+                <input type="hidden" name="rg_id" value="<%=data.rg_id %>">
+                <div class="field">
+                    <label>Número do RG</label>
+                    <input class="form-control" type="text" minlength="7" maxlength="7" name="rg_numero" value="<%=data.rg_numero %>" required><br>
+                </div>
+                <div class="field">
+                    <label>Órgão Expedidor</label>
+                    <input class="form-control" type="text" name="rg_orgaoExpedidor" value="<%=data.rg_orgaoExpedidor %>" required><br>
+                </div>
+                <div class="field">
+                    <label>RG Data de Expedição:</label>
+                    <input class="form-control" type="date" name="rg_dataExpedicao" value="<%=data.rg_dataExpedicao %>" required>
+                </div>
+            </div>
+
+            <div class="three fields">
+                <div class="field">
+                    <label>Naturalidade:</label>
+                    <input class="form-control" type="text" name="rg_naturalidade" value="<%=data.rg_naturalidade %>" required><br>
+                </div>
+                <div class="field">
+                    <label>Data de Nascimento:</label>
+                    <input class="form-control" type="date" name="rg_dataNascimento" value="<%=data.rg_dataNascimento %>" required><br>
+                </div>
+                <div class="field">
+                    <label>Filiação:</label>
+                    <input class="form-control" type="text" name="rg_filiacao" value="<%=data.rg_filiacao %>" required>
+                </div>
+            </div>
+
+            <h4 class="ui dividing header">Documentos</h4>
+            <div class="three fields">
+                <input type="hidden" name="cpf_id" value="<%=data.cpf_id %>">
+                <div class="field">
+                    <label>CPF</label>
+                    <input class="form-control" type="text" minlength="11" maxlength="11" name="cpf_numero" value="<%=data.cpf_numero %>" required>
+                </div>
+                <input type="hidden" name="sus_id" value="<%=data.sus_id %>">
+                <div class="field">
+                    <label >SUS</label>
+                    <input class="form-control" type="text" minlength="15" maxlength="15" name="sus_numero" value="<%=data.sus_numero %>" required>
+                </div>
+            </div>
+    
+            <h4 class="ui dividing header">Título de Eleitor</h4>
+            <div class="three fields">
+                <input type="hidden" name="titulo_id" value="<%=data.titulo_id %>">
+                <div class="field">
+                    <input class="form-control" type="text" minlength="12" maxlength="12" name="titulo_numeroInscricao" value="<%=data.titulo_numeroInscricao %>"required><br>
+                </div>
+                <div class="field">
+                    <input class="form-control" type="text" minlength="3" maxlength="3" name="titulo_zona" value="<%=data.titulo_zona %>"required><br>
+                </div>
+                <div class="field">
+                    <select name="titulo_uf">
+                        <option value="<%=data.titulo_uf %>" selected><%=data.titulo_uf %></option>
+                        <option value="Acre">Acre</option>
+                        <option value="Alagoas">Alagoas</option>
+                        <option value="Amapá">Amapá</option>
+                        <option value="Amazonas">Amazonas</option>
+                        <option value="Bahia">Bahia</option>
+                        <option value="Ceará">Ceará</option>
+                        <option value="Distrito Federal">Distrito Federal</option>
+                        <option value="Espírito Santo">Espírito Santo</option>
+                        <option value="Goiás">Goiás</option>
+                        <option value="Maranhão">Maranhão</option>
+                        <option value="Mato Grosso">Mato Grosso</option>
+                        <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                        <option value="Minas Gerais">Minas Gerais</option>
+                        <option value="Pará">Pará</option>
+                        <option value="Paraíba">Paraíba</option>
+                        <option value="Paraná">Paraná</option>
+                        <option value="Pernambuco">Pernambuco</option>
+                        <option value="Piauí">Piauí</option>
+                        <option value="Rio de Janeiro">Rio de Janeiro</option>
+                        <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                        <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                        <option value="Rondônia">Rondônia</option>
+                        <option value="Roraima">Roraima</option>
+                        <option value="Santa Catarina">Santa Catarina</option>
+                        <option value="São Paulo">São Paulo</option>
+                        <option value="Sergipe">Sergipe</option>
+                        <option value="Tocantins">Tocantins</option>
+                    </select>
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field">
+                    <label>Título Município</label>
+                    <input class="form-control" type="text" name="titulo_municipio" value="<%=data.titulo_municipio %>" required><br>
+                </div>
+                <div class="field">
+                    <label>Título de Eleitor Data de Emissão:</label>
+                    <input class="form-control" type="date" name="titulo_dataEmissao" value="<%=data.titulo_dataEmissao %>" required>
+                </div>
+            </div>
+    
+            <h4 class="ui dividing header">Carteira de Trabalho</h4>
+            <div class="three fields">
+                <input type="hidden" name="ctps_id" value="<%=data.ctps_id %>">
+                <div class="field">
+                    <input class="form-control" type="text" minlength="7" maxlength="7" name="ctps_numero" value="<%=data.ctps_numero %>" required><br>
+                </div>
+                <div class="field">
+                    <input class="form-control" type="text" minlength="4" maxlength="4" name="ctps_serie" value="<%=data.ctps_serie %>" required><br>
+                </div>
+                <div class="field">
+                    <select class="form-control" name="ctps_uf">
+                        <option value="<%=data.ctps_uf %>" selected><%=data.ctps_uf %></option>
+                        <option value="Acre">Acre</option>
+                        <option value="Alagoas">Alagoas</option>
+                        <option value="Amapá">Amapá</option>
+                        <option value="Amazonas">Amazonas</option>
+                        <option value="Bahia">Bahia</option>
+                        <option value="Ceará">Ceará</option>
+                        <option value="Distrito Federal">Distrito Federal</option>
+                        <option value="Espírito Santo">Espírito Santo</option>
+                        <option value="Goiás">Goiás</option>
+                        <option value="Maranhão">Maranhão</option>
+                        <option value="Mato Grosso">Mato Grosso</option>
+                        <option value="Mato Grosso do Sul">Mato Grosso do Sul</option>
+                        <option value="Minas Gerais">Minas Gerais</option>
+                        <option value="Pará">Pará</option>
+                        <option value="Paraíba">Paraíba</option>
+                        <option value="Paraná">Paraná</option>
+                        <option value="Pernambuco">Pernambuco</option>
+                        <option value="Piauí">Piauí</option>
+                        <option value="Rio de Janeiro">Rio de Janeiro</option>
+                        <option value="Rio Grande do Norte">Rio Grande do Norte</option>
+                        <option value="Rio Grande do Sul">Rio Grande do Sul</option>
+                        <option value="Rondônia">Rondônia</option>
+                        <option value="Roraima">Roraima</option>
+                        <option value="Santa Catarina">Santa Catarina</option>
+                        <option value="São Paulo">São Paulo</option>
+                        <option value="Sergipe">Sergipe</option>
+                        <option value="Tocantins">Tocantins</option>
+                    </select>            
+                </div>
+            </div>
+
+            <div id="reservista">
+                <h4 class="ui dividing header">Reservista</h4>
+                <div class="three fields">
+                <input type="hidden" name="reservista_id" value="<%=data.reservista_id %>">
+                    <div class="field">
+                        <input class="form-control" id="ra" type="text" minlength="12" maxlength="12" name="reservista_ra" value="<%=data.reservista_ra %>" required><br>
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="ui dividing header">Informações Bancárias</h4>
+            <div class="three fields">
+                <input type="hidden" name="banco_id" value="<%=data.banco_id %>">
+                <div class="field">
+                    <input class="form-control" type="text" minlength="4" maxlength="4" name="banco_agencia" value="<%=data.banco_agencia %>" required><br>
+                </div>
+                <div class="field">
+                    <input class="form-control" type="text" minlength="3" maxlength="3" name="banco_tipoConta" value="<%=data.banco_tipoConta %>" required><br>
+                </div>
+                <div class="field">
+                    <input class="form-control" type="text" minlength="9" maxlength="9" name="banco_numeroConta" value="<%=data.banco_numeroConta %>" required>
                 </div>
             </div>
         </div>
         <a class="ui button" href="/funcionarios">Voltar</a>
         <button class="ui button green" type="submit">Registrar</button>
     </form>
+    <br>
 </div>
 
 <%- include('../parts/footer.ejs') %>
+
+<script>
+    function mostrarReservista() {
+        var sexo = document.getElementById('sexo').value;
+    
+        if (sexo != 'Masculino') {
+            document.getElementById('reservista').style.display = 'none';
+            document.getElementById('ra').required = false;
+        } else {
+            document.getElementById('reservista').style.display = 'block';
+            document.getElementById('ra').required = true;
+        }
+    }
+</script>

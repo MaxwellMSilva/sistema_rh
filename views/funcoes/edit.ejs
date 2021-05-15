@@ -15,13 +15,9 @@
                     <select class="ui fluid dropdown" name="funcao_departamento">
                         <% departamentos.forEach(departamento=> { %>
                             <% if (funcao.funcao_departamento == departamento.departamento_id) { %>
-                                <option value="<%=departamento.departamento_id %>" selected>
-                                    <%=departamento.departamento_nome %>
-                                </option>
+                                <option value="<%=departamento.departamento_id %>" selected><%=departamento.departamento_nome %></option>
                             <% } else { %>
-                                <option value="<%=departamento.departamento_id %>">
-                                    <%=departamento.departamento_nome %>
-                                </option>
+                                <option value="<%=departamento.departamento_id %>"><%=departamento.departamento_nome %></option>
                             <% } %>
                         <% }) %>
                     </select>

@@ -21,11 +21,12 @@ router.get('/funcoes', adminAuth, async (request, response) => {
 router.get('/funcao/new', adminAuth, async (request, response) => {
     await database('departamentos')
             .select('*')
-                .then((departamentos) => {
-                    response.render('funcoes/new', {
-                        departamentos: departamentos,
+                .orderBy('departamento_id', 'desc')
+                    .then((departamentos) => {
+                        response.render('funcoes/new', {
+                            departamentos: departamentos,
+                        });
                     });
-                });
 });
 
 router.post('/funcoes/save', adminAuth, async (request, response) => {
