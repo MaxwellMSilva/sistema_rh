@@ -4,10 +4,12 @@ use database_rh;
 
 create table adm (
 	id int auto_increment,
+    usuario varchar(255) not null,
     senha_acesso varchar(255) not null,
     primary key(id)
 );
-insert into adm(senha_acesso) values ('123');
+insert into adm(usuario, senha_acesso) values ('adm', '123');
+insert into adm(usuario, senha_acesso) values ('aux_adm', '321');
 
 create table departamentos (
 	departamento_id int auto_increment,
@@ -27,8 +29,8 @@ create table funcionarios (
 	funcionario_id int auto_increment,
     funcionario_nomeCompleto varchar(255) not null,
     funcionario_funcao int not null, /* FOREIGN KEY */
+    funcionario_dataAdmissao varchar(255) not null,
     funcionario_salario varchar(255) not null,
-    funcionario_dataAdmissao varchar(255),
     funcionario_sexo enum('Masculino', 'Feminino') not null,
     funcionario_email varchar(255) not null,
     funcionario_telefone int not null,
@@ -36,85 +38,66 @@ create table funcionarios (
     foreign key(funcionario_funcao) references departamento_funcoes(funcao_id)
 );
 
-/* ==================================================================================== */
-
 create table funcionario_endereco (
 	endereco_id int auto_increment,
-    endereco_funcionario int not null, /* FOREIGN KEY */
     endereco_cep char(8) not null,
     endereco_bairro varchar(255) not null,
     endereco_rua varchar(255) not null,
     endereco_numero int not null,
-    primary key(endereco_id),
-    foreign key(endereco_funcionario) references funcionarios(funcionario_id) on delete cascade
+    primary key(endereco_id)
 );
 
 create table funcionario_rg (
 	rg_id int auto_increment,
-    rg_funcionario int not null, /* FOREIGN KEY */
     rg_numero char(7) not null unique,
     rg_orgaoExpedidor varchar(255) not null,
     rg_dataExpedicao varchar(255) not null,
-    primary key(rg_id),
-    foreign key(rg_funcionario) references funcionarios(funcionario_id) on delete cascade
+    rg_naturalidade varchar(255) not null,
+    rg_dataNascimento varchar(255) not null,
+    rg_filiacao varchar(255) not null,
+    primary key(rg_id)
 );
 
 create table funcionario_cpf (
 	cpf_id int auto_increment,
-    cpf_funcionario int not null, /* FOREIGN KEY */
     cpf_numero char(11) not null unique,
-    primary key(cpf_id),
-    foreign key(cpf_funcionario) references funcionarios(funcionario_id) on delete cascade
+    primary key(cpf_id)
 );
 
 create table funcionario_sus (
 	sus_id int auto_increment,
-    sus_funcionario int not null, /* FOREIGN KEY */
     sus_numero char(15) not null unique,
-    primary key(sus_id),
-    foreign key(sus_funcionario) references funcionarios(funcionario_id) on delete cascade
+    primary key(sus_id)
 );
 
 create table funcionario_tituloEleitor (
 	titulo_id int auto_increment,
-    titulo_funcionario int not null, /* FOREIGN KEY */
     titulo_numeroInscricao char(12) not null unique,
     titulo_zona char(3) not null,
-    titulo_uf char(2) not null,
+    titulo_uf varchar(255) not null,
     titulo_municipio varchar(255) not null,
     titulo_dataEmissao varchar(255) not null,
-    primary key(titulo_id),
-    foreign key(titulo_funcionario) references funcionarios(funcionario_id) on delete cascade
+    primary key(titulo_id)
 );
 
 create table funcionario_ctps (
 	ctps_id int auto_increment,
-    ctps_funcionario int not null, /* FOREIGN KEY */
     ctps_numero char(7) not null,
     ctps_serie char(4) not null,
-    ctps_uf char(2) not null,
-    primary key(ctps_id),
-    foreign key(ctps_funcionario) references funcionarios(funcionario_id) on delete cascade
+    ctps_uf varchar(255) not null,
+    primary key(ctps_id)
 );
 
 create table funcionario_reservista (
 	reservista_id int auto_increment,
-    reservista_funcionario int not null, /* FOREIGN KEY */
     reservista_ra char(12) not null unique,
-    reservista_localNascimento varchar(255) not null,
-    reservista_dataNascimento varchar(255) not null,
-    reservista_filiacaoMae varchar(255),
-    reservista_filiacaoPai varchar(255),
-    primary key(reservista_id),
-    foreign key(reservista_funcionario) references funcionarios(funcionario_id) on delete cascade
+    primary key(reservista_id)
 );
 
 create table funcionario_banco (
 	banco_id int auto_increment,
-    banco_funcionario int not null, /* FOREIGN KEY */
     banco_agencia char(4) not null,
     banco_tipoConta char(3) not null,
     banco_numeroConta char(9) not null unique,
-    primary key(banco_id),
-    foreign key(banco_funcionario) references funcionarios(funcionario_id) on delete cascade
+    primary key(banco_id)
 );
