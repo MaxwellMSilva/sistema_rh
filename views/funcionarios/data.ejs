@@ -1,61 +1,118 @@
 <%- include('../parts/header.ejs') %>
-
-<div class="container">
-    <br>
-    <hr>
-    <a href="/funcionarios">Voltar</a>
-    <hr>
-    <a href="/funcionario/edit/<%=funcionario.funcionario_id %>">EDITAR</a>
-    <hr>
-    <form action="/funcionario/delete/<%=funcionario.funcionario_id %>" method="POST" onsubmit="confirmDelete(event, this)">
-        <input type="hidden" name="funcionario_id" value="<%=funcionario.funcionario_id %>">
-        <button class="btn btn-danger" href="">Apagar Informação do Funcionário</button>
-    </form>
-    <hr>
-    
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <h4><%=funcionario.funcionario_nomeCompleto %></h4>
+    <style>
+        .btn-action {
+            width: 150px;
+        }
+        
+        .container_action {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 20px;
+        }
+        
+        .container_action a,
+        button {
+            margin: 10px 0 !important;
+        }
+        
+        .container-card {
+            width: 100% !important;
+        }
+        
+        .container-info {
+            width: 50vw;
+            display: flex;
+            background-color: #333 !important;
+        }
+        
+        @media (max-width: 1000px) {
+            .container-info {
+                display: flex;
+                justify-content: center;
+                width: 100vw;
+            }
+            .container_action {
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+    <div class="container" style="margin: 50px 0; width: 100%;">
+        <div class="ui grid">
+            <div class="two wide">
+                <div class="container_action">
+                    <a class="ui button btn-action" href="/funcionarios">Voltar</a>
+                    <a class="ui button blue btn-action" href="/funcionario/edit/<%=funcionario.funcionario_id %>">EDITAR</a>
+                    <form action="/funcionario/delete/<%=funcionario.funcionario_id %>" method="POST" onsubmit="confirmDelete(event, this)">
+                        <input type="hidden" name="funcionario_id" value="<%=funcionario.funcionario_id %>">
+                        <button class="ui button red btn-action">Apagar</button>
+                    </form>
+                </div>
             </div>
-            <div class="card-body">
-                <h5>Função: </h5>
-                <p><%=funcionario.funcao_nome %></p>
+            <div class="six wide">
+                <div class="container-info">
+                    <div class="ui card" style="width: 100%; padding: 10px;">
+                        <div class="content">
+                            <div class="header">
+                                <%=funcionario.funcionario_nomeCompleto %>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <h5>Função: </h5>
+                            <p>
+                                <%=funcionario.funcao_nome %>
+                            </p>
 
-                <h5>Departamento: </h5>
-                <p><%=funcionario.departamento_nome %></p>
+                            <h5>Departamento: </h5>
+                            <p>
+                                <%=funcionario.departamento_nome %>
+                            </p>
 
-                <h5>Data de Admissão: </h5>
-                <p><%=funcionario.funcionario_dataAdmissao %></p>
-                
-                <h5>Salário: </h5>
-                <p><%=funcionario.funcionario_salario %></p>
+                            <h5>Data de Admissão: </h5>
+                            <p>
+                                <%=funcionario.funcionario_dataAdmissao %>
+                            </p>
 
-                <h5>Sexo: </h5>
-                <p><%=funcionario.funcionario_sexo %></p>
+                            <h5>Salário: </h5>
+                            <p>
+                                <%=funcionario.funcionario_salario %>
+                            </p>
 
-                <h5>Email: </h5>
-                <p><%=funcionario.funcionario_email %></p>
+                            <h5>Sexo: </h5>
+                            <p>
+                                <%=funcionario.funcionario_sexo %>
+                            </p>
 
-                <h5>Telefone para Contato: </h5>
-                <p><%=funcionario.funcionario_telefone %></p>
+                            <h5>Email: </h5>
+                            <p>
+                                <%=funcionario.funcionario_email %>
+                            </p>
+
+                            <h5>Telefone para Contato: </h5>
+                            <p>
+                                <%=funcionario.funcionario_telefone %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <br>
-</div>
 
-<%- include('../parts/footer.ejs') %>
+    <%- include('../parts/footer.ejs') %>
 
-<script>
-    function confirmDelete(event, form) {
-        event.preventDefault();
-        var decision = confirm('Você deseja deletar este funcionário?');
-        if (decision) {
-            var confirm_decision = confirm('Você tem certeza? Na vez em que uma informação for deletada, ela não pode ser recuperada!')
-            if (confirm_decision) {
-                form.submit();
+        <script>
+            function confirmDelete(event, form) {
+                event.preventDefault();
+                var decision = confirm('Você deseja deletar este funcionário?');
+                if (decision) {
+                    var confirm_decision = confirm('Você tem certeza? Na vez em que uma informação for deletada, ela não pode ser recuperada!')
+                    if (confirm_decision) {
+                        form.submit();
+                    }
+                }
             }
-        }
-    }
-</script>
+        </script>

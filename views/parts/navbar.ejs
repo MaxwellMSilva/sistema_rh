@@ -1,4 +1,30 @@
-<div class="ui secondary pointing menu">
+<style>
+    .menu-drop .itemlink {
+        padding: 0;
+        margin: 0;
+        text-decoration: none;
+        color: #333;
+        border: 0;
+    }
+    
+    .link {
+        color: red;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 550;
+        font-size: 15px;
+        margin: 0;
+    }
+    
+    .link:hover {
+        color: red;
+    }
+</style>
+<div class="ui secondary pointing menu" style="height: 50px;">
     <div class="ui container">
         <a class="item" href="/departamentos">
             Departamentos
@@ -11,15 +37,7 @@
         </a>
         <div class="right menu">
             <a class="ui item">
-                <div class="ui horizontal list">
-                    <div class="item">
-                        <img class="ui mini circular image" src="https://semantic-ui.com/images/avatar2/small/molly.png">
-                        <div class="content">
-                            <div class="ui sub header">BIA</div>
-                            Coordinator
-                        </div>
-                    </div>
-                </div>
+                <a href="logout" class="link"><i class="circular inverted red reply icon"></i>Sair</a>
             </a>
         </div>
     </div>
