@@ -1,18 +1,30 @@
 <%- include('parts/header.ejs') %>
-
-<div class="container">
-    <br>
-    <div class="card">
-        <div class="card-header">
-            <h4>Insira seu código de Administrador</h4>
-        </div>
-        <div class="card-body">
-            <form action="/authenticate" method="POST">
-                <input class="form-control" type="password" name="senha_acesso" placeholder="Código de ADM" required><br>
-                <button class="btn btn-success" type="submit">Logar</button>
-            </form>
+    <style>
+        /* <%- include('style.css') %> depois tira esse comentario pra funcionar a estilização aparece erro mais funciona */
+    </style>
+    <div class="container">
+        <div class="ui container_login">
+            <div class="form_login">
+                <div class="title-card align_center">
+                    <div class="header">Insira seu código de administrador</div>
+                </div>
+                <!-- <h4 class="ui sub header">Código</h4>s -->
+                <form action="/authenticate" method="POST">
+                    <div class="ct_form">
+                        <div class="ui left icon input">
+                            <input type="password" name="senha_acesso" placeholder="Código de ADM" required>
+                            <i class="user icon"></i>
+                        </div>
+                    </div>
+                    <div class="container_button">
+                        <button type="submit" class="ui right labeled icon button blue btn_logar">
+                            <i class="right arrow icon"></i>
+                            Logon 
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-<%- include('parts/footer.ejs') %>
+    <%- include('parts/footer.ejs') %>
