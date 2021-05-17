@@ -3,6 +3,10 @@
 <%- include('../parts/navbar.ejs') %>
 
 <div class="ui container">
+    <form action="/funcoes" method="POST">
+        <input type="search" name="funcao_nome">
+        <button>search</button>
+    </form>
     <div class="containerButton">
         <a class="positive ui button right floated" href="/funcao/new" style="margin: 10px 0;">
             Adicionar Função
@@ -23,9 +27,10 @@
                     <td><%=funcao.departamento_nome %></td>
 
                     <td class="right aligned">
-                        <a class="ui icon button blue" href="/funcao/edit/<%=funcao.funcao_id %>">
-                            <i class="edit icon"></i>
-                            Editar
+                        <a class="ui icon button blue" href="#">Vizualizar</a>
+
+                        <a class="ui icon button yellow" href="/funcao/edit/<%=funcao.funcao_id %>">
+                            <i class="edit icon"></i>Editar
                         </a>
     
                         <form action="/funcao/delete/<%=funcao.funcao_id  %>" method="POST" onsubmit="confirmDelete(event, this)" style="display: inline;">

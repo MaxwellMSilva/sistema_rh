@@ -3,6 +3,10 @@
 <%- include('../parts/navbar.ejs') %>
 
 <div class="ui container">
+    <form action="/departamentos" method="POST">
+        <input type="search" name="departamento_nome">
+        <button>search</button>
+    </form>
     <div class="containerButton">
         <a class="positive ui button right floated" href="/departamento/new" style="margin: 10px 0;">
             Adicionar Departamento

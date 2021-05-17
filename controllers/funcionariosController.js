@@ -6,12 +6,12 @@ const database = require('../connection/database');
 
 const adminAuth = require('../middlewares/adminAuth');
 
-router.get('/funcionarios', adminAuth, async (request, response) => {
+router.get('/funcionarios', async (request, response) => {
     await database('departamentos')
             .join('departamento_funcoes', 'departamento_funcoes.funcao_departamento', 'departamentos.departamento_id')
                 .innerJoin('funcionarios', 'funcionarios.funcionario_funcao', 'departamento_funcoes.funcao_id')
-                    .orderBy('funcionario_id', 'desc')
-                        .select('*')
+                    .select('*')
+                        .orderBy('funcionario_id', 'desc')
                             .then((funcionarios) => {
                                 response.render('funcionarios/index', {
                                     funcionarios: funcionarios,
@@ -161,16 +161,16 @@ router.post('/funcionario/save', adminAuth, async (request, response) => {
 router.get('/funcionario/data/:funcionario_id', adminAuth, async (request, response) => {
     var funcionario_id = request.params.funcionario_id;
 
-    database('funcionarios')
-        .innerJoin('departamento_funcoes', 'departamento_funcoes.funcao_id', 'funcionarios.funcionario_funcao')
-        .innerJoin('departamentos', 'departamentos.departamento_id', 'departamento_funcoes.funcao_departamento')
-            .where('funcionario_id', funcionario_id)
-                .first()
-                    .then((funcionario) => {
-                        response.render('funcionarios/data', {
-                            funcionario: funcionario,
+    await database('funcionarios')
+            .innerJoin('departamento_funcoes', 'departamento_funcoes.funcao_id', 'funcionarios.funcionario_funcao')
+            .innerJoin('departamentos', 'departamentos.departamento_id', 'departamento_funcoes.funcao_departamento')
+                .where('funcionario_id', funcionario_id)
+                    .first()
+                        .then((funcionario) => {
+                            response.render('funcionarios/data', {
+                                funcionario: funcionario,
+                            });
                         });
-                    });
 });
 
 router.post('/funcionario/delete/:chave_rg', adminAuth, async (request, response) => {
@@ -403,6 +403,22 @@ router.post('/funcionario/update/:chave', adminAuth, async (request, response) =
         response.redirect('/funcionarios');
         console.log(err);
     }
+});
+
+router.post('/funcionarios', async (request, response) => {
+    var rg_numero = request.body.rg_numero;
+
+    await database('departamentos')
+            .innerJoin('departamento_funcoes', 'departamento_funcoes.funcao_departamento', 'departamentos.departamento_id')
+            .innerJoin('funcionarios', 'funcionarios.funcionario_funcao', 'departamento_funcoes.funcao_id')
+                .where('funcionarios.chave_rg', 'like', `%${rg_numero}%`)
+                    .select('*')
+                        .orderBy('funcionario_id', 'desc')
+                            .then((funcionarios) => {
+                                response.render('funcionarios/index', {
+                                    funcionarios: funcionarios
+                                });
+                            });
 });
 
 module.exports = router;

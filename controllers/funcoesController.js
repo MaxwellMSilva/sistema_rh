@@ -6,11 +6,11 @@ const database = require('../connection/database');
 
 const adminAuth = require('../middlewares/adminAuth');
 
-router.get('/funcoes', adminAuth, async (request, response) => {
+router.get('/funcoes', async (request, response) => {
     await database('departamentos')
             .join('departamento_funcoes', 'departamento_funcoes.funcao_departamento', 'departamentos.departamento_id')
-                .orderBy('funcao_id', 'desc')
-                    .select('*')
+                .select('*')
+                    .orderBy('funcao_id', 'desc')
                         .then((funcoes) => {
                             response.render('funcoes/index', {
                                 funcoes: funcoes,
@@ -18,7 +18,7 @@ router.get('/funcoes', adminAuth, async (request, response) => {
                         });
 });
 
-router.get('/funcao/new', adminAuth, async (request, response) => {
+router.get('/funcao/new', async (request, response) => {
     await database('departamentos')
             .select('*')
                 .orderBy('departamento_id', 'desc')
@@ -29,7 +29,7 @@ router.get('/funcao/new', adminAuth, async (request, response) => {
                     });
 });
 
-router.post('/funcoes/save', adminAuth, async (request, response) => {
+router.post('/funcoes/save', async (request, response) => {
     var funcao_nome = request.body.funcao_nome;
     var funcao_departamento = request.body.funcao_departamento;
     
@@ -44,7 +44,7 @@ router.post('/funcoes/save', adminAuth, async (request, response) => {
             });
 });
 
-router.post('/funcao/delete/:funcao_id', adminAuth, async (request, response) => {
+router.post('/funcao/delete/:funcao_id', async (request, response) => {
     var funcao_id = request.params.funcao_id;
 
     if (request.session.user.usuario == 'adm') {
@@ -61,7 +61,7 @@ router.post('/funcao/delete/:funcao_id', adminAuth, async (request, response) =>
     }
 });
 
-router.get('/funcao/edit/:funcao_id', adminAuth, async (request, response) => {
+router.get('/funcao/edit/:funcao_id', async (request, response) => {
     var funcao_id = request.params.funcao_id;
 
     await database('departamento_funcoes')
@@ -79,7 +79,7 @@ router.get('/funcao/edit/:funcao_id', adminAuth, async (request, response) => {
                         });
 });
 
-router.post('/funcao/update', adminAuth, async (request, response) => {
+router.post('/funcao/update', async (request, response) => {
     var funcao_id = request.body.funcao_id;
     var funcao_nome = request.body.funcao_nome;
     var funcao_departamento = request.body.funcao_departamento;
@@ -94,6 +94,20 @@ router.post('/funcao/update', adminAuth, async (request, response) => {
                 }).catch(() => {
                     response.redirect('/funcoes');
                 });
+});
+
+router.post('/funcoes', async (request, response) => {
+    var funcao_nome = request.body.funcao_nome;
+
+    await database('departamento_funcoes')
+            .where('funcao_nome', 'like', `%${funcao_nome}%`)
+                .select('*')
+                    .orderBy('funcao_id', 'desc')
+                        .then((funcoes) => {
+                            response.render('funcoes/index', {
+                                funcoes: funcoes,
+                            });
+                        });
 });
 
 module.exports = router;

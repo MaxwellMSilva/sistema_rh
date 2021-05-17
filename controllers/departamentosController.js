@@ -6,10 +6,10 @@ const database = require('../connection/database');
 
 const adminAuth = require('../middlewares/adminAuth');
 
-router.get('/departamentos', adminAuth, async (request, response) => {
+router.get('/departamentos', async (request, response) => {
     await database('departamentos')
-            .orderBy('departamento_id', 'desc')
-                .select('*')
+            .select('*')
+                .orderBy('departamento_id', 'desc')
                     .then((departamentos) => {
                         response.render('departamentos/index', {
                             departamentos: departamentos,
@@ -17,11 +17,11 @@ router.get('/departamentos', adminAuth, async (request, response) => {
                     });
 });
 
-router.get('/departamento/new', adminAuth, async (request, response) => {
+router.get('/departamento/new', async (request, response) => {
     await response.render('departamentos/new');
 });
 
-router.post('/departamento/save', adminAuth, async (request, response) => {
+router.post('/departamento/save', async (request, response) => {
     var departamento_nome = request.body.departamento_nome;
 
     await database('departamentos')
@@ -32,7 +32,7 @@ router.post('/departamento/save', adminAuth, async (request, response) => {
             });
 });
 
-router.post('/departamento/delete/:departamento_id', adminAuth, async (request, response) => {
+router.post('/departamento/delete/:departamento_id', async (request, response) => {
     var departamento_id = request.params.departamento_id;
 
     if (request.session.user.usuario == 'adm') {
@@ -49,7 +49,7 @@ router.post('/departamento/delete/:departamento_id', adminAuth, async (request, 
     }
 });
 
-router.get('/departamento/edit/:departamento_id', adminAuth, async (request, response) => {
+router.get('/departamento/edit/:departamento_id', async (request, response) => {
     var departamento_id = request.params.departamento_id;
 
     await database('departamentos')
@@ -62,7 +62,7 @@ router.get('/departamento/edit/:departamento_id', adminAuth, async (request, res
                     });
 });
 
-router.post('/departamento/update', adminAuth, async (request, response) => {
+router.post('/departamento/update', async (request, response) => {
     var departamento_id = request.body.departamento_id;
     var departamento_nome = request.body.departamento_nome;
 
@@ -75,6 +75,20 @@ router.post('/departamento/update', adminAuth, async (request, response) => {
                 }).catch(() => {
                     response.redirect('/departamentos')
                 });
+});
+
+router.post('/departamentos', async (request, response) => {
+    var departamento_nome = request.body.departamento_nome;
+
+    await database('departamentos')
+            .where('departamento_nome', 'like', `%${departamento_nome}%`)
+                .select('*')
+                    .orderBy('departamento_id', 'desc')
+                        .then((departamentos) => {
+                            response.render('departamentos/index', {
+                                departamentos: departamentos,
+                            });
+                        });
 });
 
 module.exports = router;
