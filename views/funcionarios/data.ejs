@@ -40,14 +40,15 @@
             }
         }
     </style>
+
     <div class="container" style="margin: 50px 0; width: 100%;">
         <div class="ui grid">
             <div class="two wide">
                 <div class="container_action">
                     <a class="ui button btn-action" href="/funcionarios">Voltar</a>
-                    <a class="ui button blue btn-action" href="/funcionario/edit/<%=funcionario.funcionario_id %>">EDITAR</a>
-                    <form action="/funcionario/delete/<%=funcionario.funcionario_id %>" method="POST" onsubmit="confirmDelete(event, this)">
-                        <input type="hidden" name="funcionario_id" value="<%=funcionario.funcionario_id %>">
+                    <a class="ui button blue btn-action" href="/funcionario/edit/<%=funcionario.chave_rg %>">EDITAR</a>
+                    <form action="/funcionario/delete/<%=funcionario.chave_rg %>" method="POST" onsubmit="confirmDelete(event, this)">
+                        <input type="hidden" name="chave_rg" value="<%=funcionario.chave_rg %>">
                         <button class="ui button red btn-action">Apagar</button>
                     </form>
                 </div>
@@ -60,59 +61,60 @@
                                 <%=funcionario.funcionario_nomeCompleto %>
                             </div>
                         </div>
-                        <div class="content">
-                            <h5>Função: </h5>
-                            <p>
-                                <%=funcionario.funcao_nome %>
-                            </p>
+                    <div class="content">
+                        <h5>Função: </h5>
+                        <p>
+                            <%=funcionario.funcao_nome %>
+                        </p>
 
-                            <h5>Departamento: </h5>
-                            <p>
-                                <%=funcionario.departamento_nome %>
-                            </p>
+                        <h5>Departamento: </h5>
+                        <p>
+                            <%=funcionario.departamento_nome %>
+                        </p>
 
-                            <h5>Data de Admissão: </h5>
-                            <p>
-                                <%=funcionario.funcionario_dataAdmissao %>
-                            </p>
+                        <h5>Data de Admissão: </h5>
+                        <p>
+                            <%=funcionario.funcionario_dataAdmissao %>
+                        </p>
 
-                            <h5>Salário: </h5>
-                            <p>
-                                <%=funcionario.funcionario_salario %>
-                            </p>
+                        <h5>Salário: </h5>
+                        <p>
+                            <%=funcionario.funcionario_salario %>
+                        </p>
 
-                            <h5>Sexo: </h5>
-                            <p>
-                                <%=funcionario.funcionario_sexo %>
-                            </p>
+                        <h5>Sexo: </h5>
+                        <p>
+                            <%=funcionario.funcionario_sexo %>
+                        </p>
 
-                            <h5>Email: </h5>
-                            <p>
-                                <%=funcionario.funcionario_email %>
-                            </p>
+                        <h5>Email: </h5>
+                        <p>
+                            <%=funcionario.funcionario_email %>
+                        </p>
 
-                            <h5>Telefone para Contato: </h5>
-                            <p>
-                                <%=funcionario.funcionario_telefone %>
-                            </p>
-                        </div>
+                        <h5>Telefone para Contato: </h5>
+                        <p>
+                            <%=funcionario.funcionario_telefone %>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <%- include('../parts/footer.ejs') %>
+<%- include('../parts/footer.ejs') %>
 
-        <script>
-            function confirmDelete(event, form) {
-                event.preventDefault();
-                var decision = confirm('Você deseja deletar este funcionário?');
-                if (decision) {
-                    var confirm_decision = confirm('Você tem certeza? Na vez em que uma informação for deletada, ela não pode ser recuperada!')
-                    if (confirm_decision) {
-                        form.submit();
-                    }
-                }
+<script>
+    function confirmDelete(event, form) {
+        event.preventDefault();
+        var decision = confirm('Você deseja deletar este funcionário?');
+                
+        if (decision) {
+            var confirm_decision = confirm('Você tem certeza? Na vez em que uma informação for deletada, ela não pode ser recuperada!')
+            if (confirm_decision) {
+                form.submit();
             }
-        </script>
+        }
+}
+</script>

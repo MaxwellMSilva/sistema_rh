@@ -31,6 +31,8 @@ router.get('/funcionario/new', adminAuth, async (request, response) => {
 });
 
 router.post('/funcionario/save', adminAuth, async (request, response) => {
+    var chave_rg = request.body.rg_numero;
+
     var funcionario_nomeCompleto = request.body.funcionario_nomeCompleto;
     var funcionario_funcao = request.body.funcionario_funcao;
     var funcionario_dataAdmissao = request.body.funcionario_dataAdmissao;
@@ -38,7 +40,7 @@ router.post('/funcionario/save', adminAuth, async (request, response) => {
     var funcionario_sexo = request.body.funcionario_sexo;
     var funcionario_email = request.body.funcionario_email;
     var funcionario_telefone = request.body.funcionario_telefone;
-    
+
     var endereco_cep = request.body.endereco_cep;
     var endereco_bairro = request.body.endereco_bairro;
     var endereco_rua = request.body.endereco_rua;
@@ -83,6 +85,7 @@ router.post('/funcionario/save', adminAuth, async (request, response) => {
                         funcionario_sexo: funcionario_sexo,
                         funcionario_email: funcionario_email,
                         funcionario_telefone: funcionario_telefone,
+                        chave_rg: chave_rg,
                     }).transacting(transaction);
 
             await database('funcionario_endereco')
@@ -91,8 +94,9 @@ router.post('/funcionario/save', adminAuth, async (request, response) => {
                         endereco_bairro: endereco_bairro,
                         endereco_rua: endereco_rua,
                         endereco_numero: endereco_numero,
+                        chave_rg: chave_rg,
                     }).transacting(transaction);
-    
+
             await database('funcionario_rg')
                     .insert({
                         rg_numero: rg_numero,
@@ -106,11 +110,13 @@ router.post('/funcionario/save', adminAuth, async (request, response) => {
             await database('funcionario_cpf')
                     .insert({
                         cpf_numero: cpf_numero,
+                        chave_rg: chave_rg,
                     }).transacting(transaction);
 
             await database('funcionario_sus')
                     .insert({
                         sus_numero: sus_numero,
+                        chave_rg: chave_rg,
                     }).transacting(transaction);
 
             await database('funcionario_tituloEleitor')
@@ -120,6 +126,7 @@ router.post('/funcionario/save', adminAuth, async (request, response) => {
                         titulo_uf: titulo_uf,
                         titulo_municipio: titulo_municipio,
                         titulo_dataEmissao: titulo_dataEmissao,
+                        chave_rg: chave_rg,
                     }).transacting(transaction);
 
             await database('funcionario_ctps')
@@ -127,11 +134,13 @@ router.post('/funcionario/save', adminAuth, async (request, response) => {
                         ctps_numero: ctps_numero,
                         ctps_serie: ctps_serie,
                         ctps_uf: ctps_uf,
+                        chave_rg: chave_rg,
                     }).transacting(transaction);
 
             await database('funcionario_reservista')
                     .insert({
                         reservista_ra: reservista_ra,
+                        chave_rg: chave_rg,
                     }).transacting(transaction);
 
             await database('funcionario_banco')
@@ -139,6 +148,7 @@ router.post('/funcionario/save', adminAuth, async (request, response) => {
                         banco_agencia: banco_agencia,
                         banco_tipoConta: banco_tipoConta,
                         banco_numeroConta: banco_numeroConta,
+                        chave_rg: chave_rg,
                     }).transacting(transaction);
 
         }).then(() => { response.redirect('/funcionarios'); });
@@ -148,73 +158,73 @@ router.post('/funcionario/save', adminAuth, async (request, response) => {
     }
 });
 
-router.get('/data/:funcionario_id', adminAuth, async (request, response) => {
+router.get('/funcionario/data/:funcionario_id', adminAuth, async (request, response) => {
     var funcionario_id = request.params.funcionario_id;
 
-    database('departamentos')
-        .join('departamento_funcoes', 'departamento_funcoes.funcao_departamento', 'departamentos.departamento_id')
-            .innerJoin('funcionarios', 'funcionarios.funcionario_funcao', 'departamento_funcoes.funcao_id')
-                .where('funcionario_id', funcionario_id)
-                    .first()
-                        .then((funcionario) => {
-                            response.render('funcionarios/data', {
-                                funcionario: funcionario,
-                            });
+    database('funcionarios')
+        .innerJoin('departamento_funcoes', 'departamento_funcoes.funcao_id', 'funcionarios.funcionario_funcao')
+        .innerJoin('departamentos', 'departamentos.departamento_id', 'departamento_funcoes.funcao_departamento')
+            .where('funcionario_id', funcionario_id)
+                .first()
+                    .then((funcionario) => {
+                        response.render('funcionarios/data', {
+                            funcionario: funcionario,
                         });
+                    });
 });
 
-router.post('/funcionario/delete/:funcionario_id', adminAuth, async (request, response) => {
-    var funcionario_id = request.params.funcionario_id;
+router.post('/funcionario/delete/:chave_rg', adminAuth, async (request, response) => {
+    var chave_rg = request.params.chave_rg;
 
     if (request.session.user.usuario == 'adm') {
         try {
             await database.transaction(async transaction => {
 
                 await database('funcionarios')
-                        .where('funcionario_id', funcionario_id)        
+                        .where('chave_rg', chave_rg)        
                             .delete()
                                 .transacting(transaction);
-    
+
                 await database('funcionario_endereco')
-                        .where('endereco_id', funcionario_id)        
+                        .where('chave_rg', chave_rg)        
                             .delete()
                                 .transacting(transaction);
-    
+
                 await database('funcionario_rg')
-                        .where('rg_id', funcionario_id)        
+                        .where('rg_numero', chave_rg)        
                             .delete()
                                 .transacting(transaction);
-    
+
                 await database('funcionario_cpf')
-                        .where('cpf_id', funcionario_id)        
+                        .where('chave_rg', chave_rg)        
                             .delete()
                                 .transacting(transaction);
-    
+
                 await database('funcionario_sus')
-                        .where('sus_id', funcionario_id)        
+                        .where('chave_rg', chave_rg)        
                             .delete()
                                 .transacting(transaction);
-    
+
                 await database('funcionario_tituloEleitor')
-                        .where('titulo_id', funcionario_id)        
+                        .where('chave_rg', chave_rg)        
                             .delete()
                                 .transacting(transaction);
-    
+
                 await database('funcionario_ctps')
-                        .where('ctps_id', funcionario_id)        
+                        .where('chave_rg', chave_rg)        
                             .delete()
                                 .transacting(transaction);
 
                 await database('funcionario_reservista')
-                        .where('reservista_id', funcionario_id)        
+                        .where('chave_rg', chave_rg)        
                             .delete()
                                 .transacting(transaction);
-    
+
                 await database('funcionario_banco')
-                        .where('banco_id', funcionario_id)        
+                        .where('chave_rg', chave_rg)        
                             .delete()
                                 .transacting(transaction);
-    
+
             }).then(() => { response.redirect('/funcionarios') });
         } catch (err) {
             response.redirect('/funcionarios');
@@ -225,40 +235,42 @@ router.post('/funcionario/delete/:funcionario_id', adminAuth, async (request, re
     }
 });
 
-router.get('/funcionario/edit/:funcionario_id', adminAuth, async (request, response) => {
-    var funcionario_id = request.params.funcionario_id;
+router.get('/funcionario/edit/:chave_rg', adminAuth, async (request, response) => {
+    var chave_rg = request.params.chave_rg;
 
-    if (isNaN(funcionario_id)) {
+    if (isNaN(chave_rg)) {
         response.redirect('/funcionarios');
     }
 
     await database('funcionarios')
-            .innerJoin('funcionario_endereco', 'funcionario_endereco.endereco_id', '=', 'funcionarios.funcionario_id')
-            .innerJoin('funcionario_rg', 'funcionario_rg.rg_id', '=', 'funcionarios.funcionario_id')
-            .innerJoin('funcionario_cpf', 'funcionario_cpf.cpf_id', '=', 'funcionarios.funcionario_id')
-            .innerJoin('funcionario_sus', 'funcionario_sus.sus_id', '=', 'funcionarios.funcionario_id')
-            .innerJoin('funcionario_tituloEleitor', 'funcionario_tituloEleitor.titulo_id', '=', 'funcionarios.funcionario_id')
-            .innerJoin('funcionario_ctps', 'funcionario_ctps.ctps_id', '=', 'funcionarios.funcionario_id')
-            .innerJoin('funcionario_reservista', 'funcionario_reservista.reservista_id', 'funcionarios.funcionario_id')
-            .innerJoin('funcionario_banco', 'funcionario_banco.banco_id', '=', 'funcionarios.funcionario_id')
-                .where('funcionario_id', funcionario_id)
+            .innerJoin('funcionario_endereco', 'funcionario_endereco.chave_rg', '=', 'funcionarios.chave_rg')
+            .innerJoin('funcionario_rg', 'funcionario_rg.rg_numero', '=', 'funcionarios.chave_rg')
+            .innerJoin('funcionario_cpf', 'funcionario_cpf.chave_rg', '=', 'funcionarios.chave_rg')
+            .innerJoin('funcionario_sus', 'funcionario_sus.chave_rg', '=', 'funcionarios.chave_rg')
+            .innerJoin('funcionario_tituloEleitor', 'funcionario_tituloEleitor.chave_rg', '=', 'funcionarios.chave_rg')
+            .innerJoin('funcionario_ctps', 'funcionario_ctps.chave_rg', '=', 'funcionarios.chave_rg')
+            .innerJoin('funcionario_reservista', 'funcionario_reservista.chave_rg', '=', 'funcionarios.chave_rg')
+            .innerJoin('funcionario_banco', 'funcionario_banco.chave_rg', '=', 'funcionarios.chave_rg')
+                .where('funcionarios.chave_rg', chave_rg)
                     .first()
                         .then((data) => {
                             database('departamento_funcoes')
                                 .select('*')
-                                    .then((funcoes) => {
-                                        response.render('funcionarios/edit', {
-                                            data: data,
-                                            funcoes: funcoes
+                                    .orderBy('funcao_id', 'desc')
+                                        .then((funcoes) => {
+                                            response.render('funcionarios/edit', {
+                                                data: data,
+                                                funcoes: funcoes,
+                                            });
                                         });
-                                    });
-                        }).catch(() => {
-                            response.redirect('/funcionarios');
-                        });
+                            });
 });
 
-router.post('/funcionario/update', adminAuth, async (request, response) => {
-    var funcionario_id = request.body.funcionario_id;
+router.post('/funcionario/update/:chave', adminAuth, async (request, response) => {
+    var chave = request.params.chave;
+
+    var chave_rg = request.body.rg_numero;
+
     var funcionario_nomeCompleto = request.body.funcionario_nomeCompleto;
     var funcionario_funcao = request.body.funcionario_funcao;
     var funcionario_dataAdmissao = request.body.funcionario_dataAdmissao;
@@ -266,14 +278,12 @@ router.post('/funcionario/update', adminAuth, async (request, response) => {
     var funcionario_sexo = request.body.funcionario_sexo;
     var funcionario_email = request.body.funcionario_email;
     var funcionario_telefone = request.body.funcionario_telefone;
-    
-    var endereco_id = request.body.endereco_id;
+
     var endereco_cep = request.body.endereco_cep;
     var endereco_bairro = request.body.endereco_bairro;
     var endereco_rua = request.body.endereco_rua;
     var endereco_numero = request.body.endereco_numero;
 
-    var rg_id = request.body.rg_id;
     var rg_numero = request.body.rg_numero;
     var rg_orgaoExpedidor = request.body.rg_orgaoExpedidor;
     var rg_dataExpedicao = request.body.rg_dataExpedicao;
@@ -281,28 +291,22 @@ router.post('/funcionario/update', adminAuth, async (request, response) => {
     var rg_dataNascimento = request.body.rg_dataNascimento;
     var rg_filiacao = request.body.rg_filiacao;
 
-    var cpf_id = request.body.cpf_id;
     var cpf_numero = request.body.cpf_numero;
 
-    var sus_id = request.body.sus_id;
     var sus_numero = request.body.sus_numero;
 
-    var titulo_id = request.body.titulo_id;
     var titulo_numeroInscricao = request.body.titulo_numeroInscricao;
     var titulo_zona = request.body.titulo_zona;
     var titulo_uf = request.body.titulo_uf;
     var titulo_municipio = request.body.titulo_municipio;
     var titulo_dataEmissao = request.body.titulo_dataEmissao;
 
-    var ctps_id = request.body.ctps_id;
     var ctps_numero = request.body.ctps_numero;
     var ctps_serie = request.body.ctps_serie;
     var ctps_uf = request.body.ctps_uf;
 
-    var reservista_id = request.body.reservista_id;
     var reservista_ra = request.body.reservista_ra;
 
-    var banco_id = request.body.banco_id;
     var banco_agencia = request.body.banco_agencia;
     var banco_tipoConta = request.body.banco_tipoConta;
     var banco_numeroConta = request.body.banco_numeroConta;
@@ -311,7 +315,7 @@ router.post('/funcionario/update', adminAuth, async (request, response) => {
         await database.transaction(async transaction => {
 
             await database('funcionarios')
-                    .where('funcionario_id', funcionario_id)
+                    .where('chave_rg', chave)
                         .update({
                             funcionario_nomeCompleto: funcionario_nomeCompleto,
                             funcionario_funcao: funcionario_funcao,
@@ -320,19 +324,21 @@ router.post('/funcionario/update', adminAuth, async (request, response) => {
                             funcionario_sexo: funcionario_sexo,
                             funcionario_email: funcionario_email,
                             funcionario_telefone: funcionario_telefone,
+                            chave_rg: chave_rg,
                         }).transacting(transaction);
 
             await database('funcionario_endereco')
-                    .where('endereco_id', endereco_id)
+                    .where('chave_rg', chave)
                         .update({
                             endereco_cep: endereco_cep,
                             endereco_bairro: endereco_bairro,
                             endereco_rua: endereco_rua,
                             endereco_numero: endereco_numero,
+                            chave_rg: chave_rg,
                         }).transacting(transaction);
-
+    
             await database('funcionario_rg')
-                    .where('rg_id', rg_id)
+                    .where('rg_numero', chave)
                         .update({
                             rg_numero: rg_numero,
                             rg_orgaoExpedidor: rg_orgaoExpedidor,
@@ -343,52 +349,58 @@ router.post('/funcionario/update', adminAuth, async (request, response) => {
                         }).transacting(transaction);
 
             await database('funcionario_cpf')
-                    .where('cpf_id', cpf_id)
+                    .where('chave_rg', chave)
                         .update({
                             cpf_numero: cpf_numero,
+                            chave_rg: chave_rg,
                         }).transacting(transaction);
 
             await database('funcionario_sus')
-                    .where('sus_id', sus_id)
+                    .where('chave_rg', chave)
                         .update({
                             sus_numero: sus_numero,
+                            chave_rg: chave_rg,
                         }).transacting(transaction);
 
             await database('funcionario_tituloEleitor')
-                    .where('titulo_id', titulo_id)
+                    .where('chave_rg', chave)
                         .update({
                             titulo_numeroInscricao: titulo_numeroInscricao,
                             titulo_zona: titulo_zona,
                             titulo_uf: titulo_uf,
                             titulo_municipio: titulo_municipio,
                             titulo_dataEmissao: titulo_dataEmissao,
+                            chave_rg: chave_rg,
                         }).transacting(transaction);
 
             await database('funcionario_ctps')
-                    .where('ctps_id', ctps_id)
+                    .where('chave_rg', chave)
                         .update({
                             ctps_numero: ctps_numero,
                             ctps_serie: ctps_serie,
                             ctps_uf: ctps_uf,
+                            chave_rg: chave_rg,
                         }).transacting(transaction);
 
             await database('funcionario_reservista')
-                    .where('reservista_id', reservista_id)
+                    .where('chave_rg', chave)
                         .update({
                             reservista_ra: reservista_ra,
+                            chave_rg: chave_rg,
                         }).transacting(transaction);
 
             await database('funcionario_banco')
-                    .where('banco_id', banco_id)
+                    .where('chave_rg', chave)
                         .update({
                             banco_agencia: banco_agencia,
                             banco_tipoConta: banco_tipoConta,
                             banco_numeroConta: banco_numeroConta,
+                            chave_rg: chave_rg,
                         }).transacting(transaction);
 
-        }).then(() => { response.redirect(`/data/${funcionario_id}`); });
+        }).then(() => { response.redirect('/funcionarios'); });
     } catch (err) {
-        response.redirect(`/funcionario/edit/${funcionario_id}`);
+        response.redirect('/funcionarios');
         console.log(err);
     }
 });

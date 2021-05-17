@@ -22,12 +22,12 @@
             <% funcionarios.forEach(funcionario => { %>
                 <tr>
                     <td><%=funcionario.funcionario_nomeCompleto %></td>
-                    <td><%=funcionario.departamento_nome %></td>
                     <td><%=funcionario.funcao_nome %></td>
+                    <td><%=funcionario.departamento_nome %></td>
                     <td><%=funcionario.funcionario_salario %></td>
 
                     <td class="right aligned">
-                        <a class="ui icon button blue" href="/data/<%=funcionario.funcionario_id %>">
+                        <a class="ui icon button blue" href="/funcionario/data/<%=funcionario.funcionario_id %>">
                             <i class="eye icon"></i>
                             Visualizar
                         </a>
