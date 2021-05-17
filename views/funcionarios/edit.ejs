@@ -30,10 +30,18 @@
                     <input type="text" name="funcionario_salario" value="<%=data.funcionario_salario %>" required><br>
                 </div>
                 <div class="field">
-                    <select name="funcionario_sexo" id="sexo" onchange="mostrarReservista()">
-                        <option value="Masculino">Masculino</option>
-                        <option value="Feminino">Feminino</option>
-                    </select>
+                    <% if (data.funcionario_sexo == 'Masculino') { %>
+                        <select name="funcionario_sexo" id="sexo" onchange="mostrarReservista()">
+                            <option value="Masculino">Masculino</option>
+                            <option value="Feminino">Feminino</option>
+                        </select>
+                    <% } else { %>
+                        <select name="funcionario_sexo" id="sexo" onchange="mostrarReservista()">
+                            <option value="Feminino">Feminino</option>
+                            <option value="Masculino">Masculino</option>
+                        </select>
+                    <% } %>
+
                 </div>
             </div>
             <div class="two fields">
@@ -114,6 +122,7 @@
                 </div>
                 <div class="field">
                     <select name="titulo_uf">
+                        <option value="<%=data.titulo_uf %>" selected><%=data.titulo_uf %></option>
                         <option value="Acre">Acre</option>
                         <option value="Alagoas">Alagoas</option>
                         <option value="Amapá">Amapá</option>
@@ -165,6 +174,7 @@
                 </div>
                 <div class="field">
                     <select class="form-control" name="ctps_uf">
+                        <option value="<%=data.ctps_uf %>" selected><%=data.ctps_uf %></option>
                         <option value="Acre">Acre</option>
                         <option value="Alagoas">Alagoas</option>
                         <option value="Amapá">Amapá</option>
@@ -196,14 +206,25 @@
                 </div>
             </div>
 
-            <div id="reservista">
-                <h4 class="ui dividing header">Reservista</h4>
-                <div class="three fields">
-                    <div class="field">
-                        <input class="form-control" id="ra" type="text" minlength="12" maxlength="12" name="reservista_ra" value="<%=data.reservista_ra %>" required><br>
+            <% if (data.funcionario_sexo == 'Feminino') { %>
+                <div id="reservista" style="display: none;">
+                    <h4 class="ui dividing header">Reservista</h4>
+                    <div class="three fields">
+                        <div class="field">
+                            <input class="form-control" id="ra" type="text" minlength="12" maxlength="12" name="reservista_ra" value="<%=data.reservista_ra %>"><br>
+                        </div>
                     </div>
                 </div>
-            </div>
+            <% } else { %>
+                <div id="reservista">
+                    <h4 class="ui dividing header">Reservista</h4>
+                    <div class="three fields">
+                        <div class="field">
+                            <input class="form-control" id="ra" type="text" minlength="12" maxlength="12" name="reservista_ra" value="<%=data.reservista_ra %>" required><br>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
 
             <h4 class="ui dividing header">Informações Bancárias</h4>
             <div class="three fields">
@@ -230,16 +251,14 @@
     function mostrarReservista() {
         var sexo = document.getElementById('sexo').value;
     
-        if (sexo != 'Masculino') {
+        if (sexo == 'Feminino') {
             document.getElementById('reservista').style.display = 'none';
             document.getElementById('ra').required = false;
-            document.getElementById('localNascimento').required = false;
-            document.getElementById('dataNascimento').required = false;
-        } else {
+            document.getElementById('ra').value = '';
+        } 
+        if (sexo == 'Masculino') {
             document.getElementById('reservista').style.display = 'block';
             document.getElementById('ra').required = true;
-            document.getElementById('localNascimento').required = true;
-            document.getElementById('dataNascimento').required = true;
         }
     }
 </script>
