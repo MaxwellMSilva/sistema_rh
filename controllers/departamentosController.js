@@ -6,7 +6,7 @@ const database = require('../connection/database');
 
 const adminAuth = require('../middlewares/adminAuth');
 
-router.get('/departamentos', async (request, response) => {
+router.get('/departamentos', adminAuth, async (request, response) => {
     await database('departamentos')
             .select('*')
                 .orderBy('departamento_id', 'desc')
@@ -17,11 +17,11 @@ router.get('/departamentos', async (request, response) => {
                     });
 });
 
-router.get('/departamento/new', async (request, response) => {
+router.get('/departamento/new', adminAuth, async (request, response) => {
     await response.render('departamentos/new');
 });
 
-router.post('/departamento/save', async (request, response) => {
+router.post('/departamento/save', adminAuth, async (request, response) => {
     var departamento_nome = request.body.departamento_nome;
 
     await database('departamentos')
@@ -32,7 +32,7 @@ router.post('/departamento/save', async (request, response) => {
             });
 });
 
-router.post('/departamento/delete/:departamento_id', async (request, response) => {
+router.post('/departamento/delete/:departamento_id', adminAuth, async (request, response) => {
     var departamento_id = request.params.departamento_id;
 
     if (request.session.user.usuario == 'adm') {
@@ -49,7 +49,7 @@ router.post('/departamento/delete/:departamento_id', async (request, response) =
     }
 });
 
-router.get('/departamento/edit/:departamento_id', async (request, response) => {
+router.get('/departamento/edit/:departamento_id', adminAuth, async (request, response) => {
     var departamento_id = request.params.departamento_id;
 
     await database('departamentos')
@@ -62,7 +62,7 @@ router.get('/departamento/edit/:departamento_id', async (request, response) => {
                     });
 });
 
-router.post('/departamento/update', async (request, response) => {
+router.post('/departamento/update', adminAuth, async (request, response) => {
     var departamento_id = request.body.departamento_id;
     var departamento_nome = request.body.departamento_nome;
 
@@ -77,7 +77,7 @@ router.post('/departamento/update', async (request, response) => {
                 });
 });
 
-router.post('/departamentos', async (request, response) => {
+router.post('/departamentos', adminAuth, async (request, response) => {
     var departamento_nome = request.body.departamento_nome;
 
     await database('departamentos')

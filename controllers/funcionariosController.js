@@ -6,7 +6,7 @@ const database = require('../connection/database');
 
 const adminAuth = require('../middlewares/adminAuth');
 
-router.get('/funcionarios', async (request, response) => {
+router.get('/funcionarios', adminAuth, async (request, response) => {
     await database('departamentos')
             .join('departamento_funcoes', 'departamento_funcoes.funcao_departamento', 'departamentos.departamento_id')
                 .innerJoin('funcionarios', 'funcionarios.funcionario_funcao', 'departamento_funcoes.funcao_id')
@@ -19,7 +19,7 @@ router.get('/funcionarios', async (request, response) => {
                             });
 });
 
-router.get('/funcionario/new', adminAuth, async (request, response) => {
+router.get('/funcionario/new', adminAuth, adminAuth, async (request, response) => {
     await database('departamento_funcoes')
             .select('*')
                 .orderBy('funcao_id', 'desc')
@@ -30,7 +30,7 @@ router.get('/funcionario/new', adminAuth, async (request, response) => {
                     });
 });
 
-router.post('/funcionario/save', adminAuth, async (request, response) => {
+router.post('/funcionario/save', adminAuth, adminAuth, async (request, response) => {
     var chave_rg = request.body.rg_numero;
 
     var funcionario_nomeCompleto = request.body.funcionario_nomeCompleto;
@@ -405,7 +405,7 @@ router.post('/funcionario/update/:chave', adminAuth, async (request, response) =
     }
 });
 
-router.post('/funcionarios', async (request, response) => {
+router.post('/funcionarios', adminAuth, async (request, response) => {
     var rg_numero = request.body.rg_numero;
 
     await database('departamentos')
