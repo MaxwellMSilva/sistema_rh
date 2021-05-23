@@ -65,7 +65,7 @@
                     <input type="text" name="endereco_rua" value="<%=data.endereco_rua %>" required><br>
                 </div>
                 <div class="field">
-                    <input type="number" name="endereco_numero" value="<%=data.endereco_numero %>" required>
+                    <input type="text" name="endereco_numero" value="<%=data.endereco_numero %>" required>
                 </div>
             </div>
 
@@ -207,7 +207,7 @@
             </div>
 
             <% if (data.funcionario_sexo == 'Feminino') { %>
-                <div id="reservista" style="display: none;">
+                <div id="reservista">
                     <h4 class="ui dividing header">Reservista</h4>
                     <div class="three fields">
                         <div class="field">
@@ -252,12 +252,10 @@
         var sexo = document.getElementById('sexo').value;
     
         if (sexo == 'Feminino') {
-            document.getElementById('reservista').style.display = 'none';
             document.getElementById('ra').required = false;
-            document.getElementById('ra').value = '';
+            document.getAnimations('ra').value = '';
         } 
         if (sexo == 'Masculino') {
-            document.getElementById('reservista').style.display = 'block';
             document.getElementById('ra').required = true;
         }
     }

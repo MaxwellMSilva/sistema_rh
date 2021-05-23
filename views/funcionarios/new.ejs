@@ -28,7 +28,7 @@
                     <input type="text" name="funcionario_salario" placeholder="Salário do Funcionário" required><br>
                 </div>
                 <div class="field">
-                    <select name="funcionario_sexo" id="sexo" onchange="mostrarReservista()">
+                    <select name="funcionario_sexo" id="sexo" onchange="requiredReservista()">
                         <option value="Masculino">Masculino</option>
                         <option value="Feminino">Feminino</option>
                     </select>
@@ -55,7 +55,7 @@
                     <input type="text" name="endereco_rua" placeholder="Endereço" required><br>
                 </div>
                 <div class="field">
-                    <input type="number" name="endereco_numero" placeholder="Número" required>
+                    <input type="text" name="endereco_numero" placeholder="Número" required>
                 </div>
             </div>
             <h4 class="ui dividing header">RG</h4>
@@ -193,6 +193,8 @@
                 </div>
             </div>
 
+
+
             <div id="reservista">
                 <h4 class="ui dividing header">Reservista</h4>
                 <div class="three fields">
@@ -201,6 +203,8 @@
                     </div>
                 </div>
             </div>
+
+
 
             <h4 class="ui dividing header">Informações Bancárias</h4>
             <div class="three fields">
@@ -224,14 +228,12 @@
 <%- include('../parts/footer.ejs') %>
 
 <script>
-    function mostrarReservista() {
+    function requiredReservista() {
         var sexo = document.getElementById('sexo').value;
     
         if (sexo != 'Masculino') {
-            document.getElementById('reservista').style.display = 'none';
             document.getElementById('ra').required = false;
         } else {
-            document.getElementById('reservista').style.display = 'block';
             document.getElementById('ra').required = true;
         }
     }

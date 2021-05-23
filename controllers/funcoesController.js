@@ -6,7 +6,7 @@ const database = require('../connection/database');
 
 const adminAuth = require('../middlewares/adminAuth');
 
-router.get('/funcoes', adminAuth, async (request, response) => {
+router.get('/funcoes', async (request, response) => {
     await database('departamentos')
             .join('departamento_funcoes', 'departamento_funcoes.funcao_departamento', 'departamentos.departamento_id')
                 .select('*')
@@ -18,7 +18,7 @@ router.get('/funcoes', adminAuth, async (request, response) => {
                         });
 });
 
-router.get('/funcao/new', adminAuth, async (request, response) => {
+router.get('/funcao/new', async (request, response) => {
     await database('departamentos')
             .select('*')
                 .orderBy('departamento_id', 'desc')
@@ -29,14 +29,16 @@ router.get('/funcao/new', adminAuth, async (request, response) => {
                     });
 });
 
-router.post('/funcoes/save', adminAuth, async (request, response) => {
+router.post('/funcoes/save', async (request, response) => {
     var funcao_nome = request.body.funcao_nome;
     var funcao_departamento = request.body.funcao_departamento;
+    var funcao_vagas = request.body.funcao_vagas;
     
     await database('departamento_funcoes')
             .insert({
                 funcao_nome: funcao_nome,
                 funcao_departamento: funcao_departamento,
+                funcao_vagas: funcao_vagas,
             }).then(() => {
                 response.redirect('/funcoes');
             }).catch(() => {
@@ -44,7 +46,7 @@ router.post('/funcoes/save', adminAuth, async (request, response) => {
             });
 });
 
-router.post('/funcao/delete/:funcao_id', adminAuth, async (request, response) => {
+router.post('/funcao/delete/:funcao_id', async (request, response) => {
     var funcao_id = request.params.funcao_id;
 
     if (request.session.user.usuario == 'adm') {
@@ -61,7 +63,7 @@ router.post('/funcao/delete/:funcao_id', adminAuth, async (request, response) =>
     }
 });
 
-router.get('/funcao/edit/:funcao_id', adminAuth, async (request, response) => {
+router.get('/funcao/edit/:funcao_id', async (request, response) => {
     var funcao_id = request.params.funcao_id;
 
     await database('departamento_funcoes')
@@ -79,16 +81,18 @@ router.get('/funcao/edit/:funcao_id', adminAuth, async (request, response) => {
                         });
 });
 
-router.post('/funcao/update', adminAuth, async (request, response) => {
+router.post('/funcao/update', async (request, response) => {
     var funcao_id = request.body.funcao_id;
     var funcao_nome = request.body.funcao_nome;
     var funcao_departamento = request.body.funcao_departamento;
+    var funcao_vagas = request.body.funcao_vagas;
 
     await database('departamento_funcoes')
             .where('funcao_id', funcao_id)
                 .update({
                     funcao_nome: funcao_nome,
                     funcao_departamento: funcao_departamento,
+                    funcao_vagas: funcao_vagas,
                 }).then(() => {
                     response.redirect('/funcoes');
                 }).catch(() => {
@@ -96,7 +100,7 @@ router.post('/funcao/update', adminAuth, async (request, response) => {
                 });
 });
 
-router.post('/funcoes', adminAuth, async (request, response) => {
+router.post('/funcoes', async (request, response) => {
     var funcao_nome = request.body.funcao_nome;
 
     await database('departamento_funcoes')
@@ -107,6 +111,18 @@ router.post('/funcoes', adminAuth, async (request, response) => {
                             response.render('funcoes/index', {
                                 funcoes: funcoes,
                             });
+                        });
+});
+
+router.get('/data/:funcao_id', async (request, response) => {
+    var funcao_id = request.params.funcao_id;
+
+    await database('departamento_funcoes')
+            .innerJoin('funcionarios', 'funcionarios.funcionario_funcao', 'departamento_funcoes.funcao_id')
+                .where('funcionarios.funcionario_funcao', funcao_id)
+                    .select('funcionarios.funcionario_id')
+                        .then((count) => {
+                            response.json(count.length);
                         });
 });
 
