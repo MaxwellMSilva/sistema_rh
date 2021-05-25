@@ -21,6 +21,7 @@ create table departamento_funcoes (
 	funcao_id int auto_increment,
     funcao_nome varchar(255) not null,
     funcao_departamento int not null, /* FOREIGN KEY */
+    funcao_vagas int not null,
     primary key(funcao_id),
     foreign key(funcao_departamento) references departamentos(departamento_id)
 );
