@@ -117,6 +117,27 @@ router.post('/funcoes', async (request, response) => {
 router.get('/data/:funcao_id', async (request, response) => {
     var funcao_id = request.params.funcao_id;
 
+    await database('departamentos')
+            .innerJoin('departamento_funcoes', 'departamento_funcoes.funcao_departamento', 'departamentos.departamento_id')
+                .where('funcao_id', funcao_id)    
+                    .first()
+                        .then((funcao) => {
+                            database('funcionarios')
+                                .where('funcionario_funcao', funcao_id)
+                                    .select('*')
+                                        .then((count) => {
+                                            response.render('funcoes/data', {
+                                                funcao: funcao,
+                                                funcionarios: count,
+                                                count: count.length,
+                                            })
+                                        });
+                        });
+});
+
+router.get('/data/:funcao_id', async (request, response) => {
+    var funcao_id = request.params.funcao_id;
+
     await database('departamento_funcoes')
             .innerJoin('funcionarios', 'funcionarios.funcionario_funcao', 'departamento_funcoes.funcao_id')
                 .where('funcionarios.funcionario_funcao', funcao_id)

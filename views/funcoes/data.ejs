@@ -1,0 +1,54 @@
+<%- include('../parts/header.ejs') %>
+
+<div class="ui container">
+    <br>
+    <form class="ui form" action="/funcoes/save" method="POST">
+        <div class="field">
+            <div class="two fields">
+                <div class="field">
+                    <label>Função:</label>
+                    <input type="text" name="funcao_nome" value="<%=funcao.funcao_nome %>" disabled>
+                </div>
+                <div class="field">
+                    <label>Departamento:</label>
+                    <input type="text" name="funcao_departamento" value="<%=funcao.departamento_nome %>" disabled>
+                </div>
+                <div class="field">
+                    <label>Vagas:</label>
+                    <input type="text" name="funcao_vagas" value="<%=count %> / <%=funcao.funcao_vagas %>" disabled>
+                </div>
+            </div>
+        </div>
+        <a class="ui button" href="/funcoes">Voltar</a>
+    </form>
+
+    <table class="ui striped table">
+        <thead>
+            <tr>
+                <th>Funcionário:</th>
+                <th>Função:</th>
+                <th>Data de Admissão:</th>
+                <th>Salário:</th>
+                <th>Ações:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% funcionarios.forEach(funcionario => { %>
+                <tr>
+                    <td><%=funcionario.funcionario_nomeCompleto %></td>
+                    <td><%=funcao.funcao_nome %></td>
+                    <td><%=funcionario.funcionario_dataAdmissao %></td>
+                    <td><%=funcionario.funcionario_salario %></td>
+                    <td>
+                        <a class="ui icon button blue" href="/funcionario/data/<%=funcionario.funcionario_id %>">
+                            <i class="eye icon"></i>
+                            Visualizar
+                        </a>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../parts/footer.ejs') %>
