@@ -10,6 +10,14 @@
     }
 </style>
 
+<!-- Só Jogar essa parte em qualquer outra pagina -->
+<div class="ui modal">
+    <div class="header">Titulo</div>
+    <div class="scrolling content">
+        <p>Body do Modal</p>
+    </div>
+</div>
+
 <div class="ui container container_search">
     <form action="/funcoes" method="POST" style="margin-bottom: -45px; width: 300px;">
         <div class="ui category search">
@@ -40,7 +48,8 @@
                     <td><%=funcao.departamento_nome %></td>
 
                     <td class="right aligned">
-                        <a class="ui icon button blue" href="/data/<%=funcao.funcao_id %>">Vizualizar</a>
+                        <a class="ui icon button blue" onclick="modalOn()">Vizualizar</a>
+                        <!-- href="/data/<%=funcao.funcao_id %> -->
 
                         <a class="ui icon button yellow" href="/funcao/edit/<%=funcao.funcao_id %>">
                             <i class="edit icon"></i>Editar
