@@ -3,9 +3,14 @@
 <%- include('../parts/navbar.ejs') %>
 
 <div class="ui container">
-    <form action="" method="POST">
-        <input type="search" name="rg_numero">
-        <button>search</button>
+    <form action="" method="POST" style="margin-bottom: -45px; width: 300px;">
+        <div class="ui category search">
+            <div class="ui icon input">
+                <input class="prompt" name="rg_numero" type="text" placeholder="Search..." style="border-radius: 5px;">
+                <i class="search icon"></i>
+            </div>
+            <div class="results"></div>
+        </div>
     </form>
     <div class="containerButton">
         <a class="positive ui button right floated" href="/funcionario/new" style="margin: 10px 0;">
