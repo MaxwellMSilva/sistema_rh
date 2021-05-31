@@ -6,7 +6,7 @@ const database = require('../connection/database');
 
 const adminAuth = require('../middlewares/adminAuth');
 
-router.get('/relatorios', async (request, response) => {
+router.get('/relatorios', adminAuth, async (request, response) => {
     await database('departamentos')
             .join('departamento_funcoes', 'departamento_funcoes.funcao_departamento', 'departamentos.departamento_id')
                 .innerJoin('funcionarios', 'funcionarios.funcionario_funcao', 'departamento_funcoes.funcao_id')
@@ -19,7 +19,7 @@ router.get('/relatorios', async (request, response) => {
                             });
 });
 
-router.post('/relatorios', async (request, response) => {
+router.post('/relatorios', adminAuth, async (request, response) => {
     var chave_rg = request.body.chave_rg;
     var departamento_nome = request.body.departamento_nome;
     var funcionario_dataAdmissao = request.body.funcionario_dataAdmissao;
