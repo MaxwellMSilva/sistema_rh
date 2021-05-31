@@ -1,0 +1,44 @@
+<%- include('../parts/header.ejs') %>
+
+<%- include('../parts/navbar.ejs') %>
+
+<div class="ui container container_search">
+    <div>
+        <form action="/relatorios" method="POST">
+            <label>RG do Funcionário: </label>
+            <input type="text" name="chave_rg">
+            <label>Departamento: </label>
+            <input type="text" name="departamento_nome">
+            <label>Data de Admissão: </label>
+            <input type="date" name="funcionario_dataAdmissao">
+
+            <button>Pesquisar</button>
+        </form>
+    </div>
+
+    <table class="ui striped table">
+        <thead>
+            <tr>
+                <th>Funcionário(a)</th>
+                <th>Função</th>
+                <th>Departamento</th>
+                <th>Salário</th>
+                <th>Admissão</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% funcionarios.forEach(funcionario => { %>
+                <tr>
+                    <td><%=funcionario.funcionario_nomeCompleto %></td>
+                    <td><%=funcionario.funcao_nome %></td>
+                    <td><%=funcionario.departamento_nome %></td>
+                    <td><%=funcionario.funcionario_salario %></td>
+                    <td><%=funcionario.funcionario_dataAdmissao %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('../parts/footer.ejs') %>

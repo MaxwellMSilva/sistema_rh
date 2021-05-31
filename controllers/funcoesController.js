@@ -135,16 +135,4 @@ router.get('/data/:funcao_id', async (request, response) => {
                         });
 });
 
-router.get('/data/:funcao_id', async (request, response) => {
-    var funcao_id = request.params.funcao_id;
-
-    await database('departamento_funcoes')
-            .innerJoin('funcionarios', 'funcionarios.funcionario_funcao', 'departamento_funcoes.funcao_id')
-                .where('funcionarios.funcionario_funcao', funcao_id)
-                    .select('funcionarios.funcionario_id')
-                        .then((count) => {
-                            response.json(count.length);
-                        });
-});
-
 module.exports = router;

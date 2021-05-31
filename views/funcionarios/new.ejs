@@ -10,7 +10,7 @@
                     <input type="text" name="funcionario_nomeCompleto" placeholder="Nome Completo" required>
                 </div>
                 <div class="field">
-                    <label>Funções:</label>
+                    <label>Função:</label>
                     <select name="funcionario_funcao">
                         <% funcoes.forEach(funcao=> { %>
                             <option value="<%=funcao.funcao_id %>">
@@ -22,12 +22,15 @@
             </div>
             <div class="three fields">
                 <div class="field">
+                    <label>Data de Admissão:</label>
                     <input type="date" name="funcionario_dataAdmissao" required><br>
                 </div>
                 <div class="field">
+                    <label>Salário:</label>
                     <input type="text" name="funcionario_salario" placeholder="Salário do Funcionário" required><br>
                 </div>
                 <div class="field">
+                    <label>Sexo:</label>
                     <select name="funcionario_sexo" id="sexo" onchange="requiredReservista()">
                         <option value="Masculino">Masculino</option>
                         <option value="Feminino">Feminino</option>
@@ -36,9 +39,11 @@
             </div>
             <div class="two fields">
                 <div class="field">
+                    <label>Email:</label>
                     <input type="email" name="funcionario_email" placeholder="Email do Funcionário" required><br>
                 </div>
                 <div class="field">
+                    <label>Contato:</label>
                     <input type="text" name="funcionario_telefone" placeholder="Telefone do Funcionário" required><br>
                 </div>
             </div>
@@ -46,19 +51,22 @@
             <h4 class="ui dividing header">Endereço</h4>
             <div class="three fields">
                 <div class="field">
+                    <label>CEP:</label>
                     <input type="text" minlength="8" maxlength="8" name="endereco_cep" placeholder="CEP" required>
                 </div>
                 <div class="field">
+                    <label>Bairro:</label>
                     <input type="text" name="endereco_bairro" placeholder="Bairro" required><br>
                 </div>
                 <div class="field">
+                    <label>Rua:</label>
                     <input type="text" name="endereco_rua" placeholder="Endereço" required><br>
                 </div>
                 <div class="field">
                     <input type="text" name="endereco_numero" placeholder="Número" required>
                 </div>
             </div>
-            <h4 class="ui dividing header">RG</h4>
+            <h4 class="ui dividing header">Documentos</h4>
             <div class="three fields">
                 <div class="field">
                     <label>Número do RG</label>
@@ -89,14 +97,15 @@
                 </div>
             </div>
 
-            <h4 class="ui dividing header">Documentos</h4>
             <div class="three fields">
                 <div class="field">
-                    <label>CPF</label>
+                    <h4 class="ui dividing header">CPF:</h4>
+                    <label>Número do CPF:</label>
                     <input class="form-control" type="text" minlength="11" maxlength="11" name="cpf_numero" placeholder="Número do CPF" required>
                 </div>
                 <div class="field">
-                    <label >SUS</label>
+                    <h4 class="ui dividing header">SUS:</h4>
+                    <label>Número do SUS:</label>
                     <input class="form-control" type="text" minlength="15" maxlength="15" name="sus_numero" placeholder="Número do SUS" required>
                 </div>
             </div>
@@ -104,12 +113,15 @@
             <h4 class="ui dividing header">Título de Eleitor</h4>
             <div class="three fields">
                 <div class="field">
+                    <label>Número de Inscrição:</label>
                     <input class="form-control" type="text" minlength="12" maxlength="12" name="titulo_numeroInscricao" placeholder="Número de Inscrição" required><br>
                 </div>
                 <div class="field">
+                    <label>Zona:</label>
                     <input class="form-control" type="text" minlength="3" maxlength="3" name="titulo_zona" placeholder="Zona" required><br>
                 </div>
                 <div class="field">
+                    <label>Título UF:</label>
                     <select name="titulo_uf">
                         <option value="Acre">Acre</option>
                         <option value="Alagoas">Alagoas</option>
@@ -143,11 +155,11 @@
             </div>
             <div class="two fields">
                 <div class="field">
-                    <label>Título Município</label>
+                    <label>Título Município:</label>
                     <input class="form-control" type="text" name="titulo_municipio" required><br>
                 </div>
                 <div class="field">
-                    <label>Título de Eleitor Data de Emissão:</label>
+                    <label>Título Data de Emissão:</label>
                     <input class="form-control" type="date" name="titulo_dataEmissao" required>
                 </div>
             </div>
@@ -155,12 +167,15 @@
             <h4 class="ui dividing header">Carteira de Trabalho</h4>
             <div class="three fields">
                 <div class="field">
+                    <label>Número:</label>
                     <input class="form-control" type="text" minlength="7" maxlength="7" name="ctps_numero" placeholder="CTPS Número" required><br>
                 </div>
                 <div class="field">
+                    <label>Série:</label>
                     <input class="form-control" type="text" minlength="4" maxlength="4" name="ctps_serie" placeholder="CTPS Série" required><br>
                 </div>
                 <div class="field">
+                    <label>CTPS UF:</label>
                     <select class="form-control" name="ctps_uf">
                         <option value="Acre">Acre</option>
                         <option value="Alagoas">Alagoas</option>
@@ -199,6 +214,7 @@
                 <h4 class="ui dividing header">Reservista</h4>
                 <div class="three fields">
                     <div class="field">
+                        <label>Número do RA:</label>
                         <input class="form-control" id="ra" type="text" minlength="12" maxlength="12" name="reservista_ra" placeholder="Reservista RA" required><br>
                     </div>
                 </div>
@@ -209,12 +225,15 @@
             <h4 class="ui dividing header">Informações Bancárias</h4>
             <div class="three fields">
                 <div class="field">
+                    <label>Agência:</label>
                     <input class="form-control" type="text" minlength="4" maxlength="4" name="banco_agencia" placeholder="Número da Agência" required><br>
                 </div>
                 <div class="field">
+                    <label>Tipo de Conta:</label>
                     <input class="form-control" type="text" minlength="3" maxlength="3" name="banco_tipoConta" placeholder="Numero de Operação" required><br>
                 </div>
                 <div class="field">
+                    <label>Número da Conta:</label>
                     <input class="form-control" type="text" minlength="9" maxlength="9" name="banco_numeroConta" placeholder="Número da Conta" required>
                 </div>
             </div>

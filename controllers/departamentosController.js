@@ -29,6 +29,8 @@ router.post('/departamento/save', adminAuth, async (request, response) => {
                 departamento_nome: departamento_nome,
             }).then(() => {
                 response.redirect('/departamentos');
+            }).catch(() => {
+                response.redirect('/departamento/new');
             });
 });
 
