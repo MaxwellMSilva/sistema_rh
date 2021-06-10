@@ -24,6 +24,7 @@
                 <th>Função</th>
                 <th>Departamento</th>
                 <th>Salário</th>
+                <th>Data de Admissão</th>
                 <th class="right aligned">Ações</th>
             </tr>
         </thead>
@@ -35,6 +36,7 @@
                     <td><%=funcionario.funcao_nome %></td>
                     <td><%=funcionario.departamento_nome %></td>
                     <td><%=funcionario.funcionario_salario %></td>
+                    <td><%=funcionario.funcionario_dataAdmissao %></td>
 
                     <td class="right aligned">
                         <a class="ui icon button blue" href="/funcionario/data/<%=funcionario.funcionario_id %>">

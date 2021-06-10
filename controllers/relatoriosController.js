@@ -20,14 +20,14 @@ router.get('/relatorios', adminAuth, async (request, response) => {
 });
 
 router.post('/relatorios', adminAuth, async (request, response) => {
-    var chave_rg = request.body.chave_rg;
+    var funcionario_nomeCompleto = request.body.funcionario_nomeCompleto;
     var departamento_nome = request.body.departamento_nome;
     var funcionario_dataAdmissao = request.body.funcionario_dataAdmissao;
 
     await database('departamentos')
             .innerJoin('departamento_funcoes', 'departamento_funcoes.funcao_departamento', 'departamentos.departamento_id')
             .innerJoin('funcionarios', 'funcionarios.funcionario_funcao', 'departamento_funcoes.funcao_id')
-                .where('funcionarios.chave_rg', 'like', `%${chave_rg}%`)
+                .where('funcionarios.funcionario_nomeCompleto', 'like', `%${funcionario_nomeCompleto}%`)
                 .andWhere('funcionarios.funcionario_dataAdmissao', 'like', `%${funcionario_dataAdmissao}%`)
                 .andWhere('departamentos.departamento_nome', 'like', `%${departamento_nome}%`)
                     .select('*')
