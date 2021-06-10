@@ -3,10 +3,16 @@
 <div class="ui container">
     <br>
     <form class="ui form" action="/departamento/update" method="POST">
-        <div class="field">
-            <label>Adicionar Departamento</label>
-            <input class="form-control" type="hidden" name="departamento_id" value="<%=departamento.departamento_id %>" required>
-            <input class="form-control" type="text" name="departamento_nome" value="<%=departamento.departamento_nome %>" required>
+        <div class="two fields">
+            <div class="field">
+                <label>Adicionar Departamento</label>
+                <input class="form-control" type="hidden" name="departamento_id" value="<%=departamento.departamento_id %>" required>
+                <input class="form-control" type="text" name="departamento_nome" value="<%=departamento.departamento_nome %>" required>
+            </div>
+            <div class="field">
+                <label>Encarregado:</label>
+                <input class="form-control" type="text" name="departamento_encarregado" value="<%=departamento.departamento_encarregado %>" required>
+            </div>
         </div>
         <a class="ui button" href="/departamentos">Voltar</a>
         <button class="ui button green" type="submit">Registrar Departamento</button>

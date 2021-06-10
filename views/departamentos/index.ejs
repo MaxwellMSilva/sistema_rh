@@ -20,30 +20,34 @@
             <div class="results"></div>
         </div>
     </form>
+
     <div class="containerButton">
         <a class="positive ui button right floated" href="/departamento/new" style="margin: 10px 0;">
             Adicionar Departamento
         </a>
     </div>
+
     <table class="ui striped table">
         <thead>
             <tr>
-                <th>Departamento</th>
+                <th>Departamento:</th>
+                <th>Encarregado:</th>
                 <th class="right aligned">Ações</th>
             </tr>
         </thead>
+
         <tbody>
-            <% departamentos.forEach(departamento=> { %>
+            <% departamentos.forEach(departamento => { %>
                 <tr>
-                    <td>
-                        <%=departamento.departamento_nome %>
-                    </td>
+                    <td><%=departamento.departamento_nome %></td>
+                    <td><%=departamento.departamento_encarregado %></td>
+
                     <td class="right aligned">
                         <a class="ui icon button blue" href="/departamento/edit/<%=departamento.departamento_id %>">
                             <i class="edit icon"></i>
                             Editar
                         </a>
-    
+
                         <form action="/departamento/delete/<%=departamento.departamento_id %>" method="POST"
                             onsubmit="confirmDelete(event, this)" style="display: inline;">
                             <input type="hidden" value="<%=departamento.departamento_id %>">

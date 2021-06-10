@@ -30,7 +30,7 @@ router.get('/funcionario/new', adminAuth, adminAuth, async (request, response) =
                     });
 });
 
-router.post('/funcionario/save', adminAuth, adminAuth, async (request, response) => {
+router.post('/funcionario/save', adminAuth, async (request, response) => {
     var chave_rg = request.body.rg_numero;
 
     var funcionario_nomeCompleto = request.body.funcionario_nomeCompleto;

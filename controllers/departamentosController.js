@@ -23,10 +23,12 @@ router.get('/departamento/new', adminAuth, async (request, response) => {
 
 router.post('/departamento/save', adminAuth, async (request, response) => {
     var departamento_nome = request.body.departamento_nome;
+    var departamento_encarregado = request.body.departamento_encarregado;
 
     await database('departamentos')
             .insert({
                 departamento_nome: departamento_nome,
+                departamento_encarregado: departamento_encarregado,
             }).then(() => {
                 response.redirect('/departamentos');
             }).catch(() => {
@@ -58,20 +60,29 @@ router.get('/departamento/edit/:departamento_id', adminAuth, async (request, res
             .where('departamento_id', departamento_id)
                 .first()
                     .then((departamento) => {
-                        response.render('departamentos/edit', {
-                            departamento: departamento,
-                        });
+                        database('departamentos')
+                            .innerJoin('departamento_funcoes', 'departamento_funcoes.funcao_departamento', 'departamentos.departamento_id')
+                            .innerJoin('funcionarios', 'funcionarios.funcionario_funcao', 'departamento_funcoes.funcao_id')
+                                .select()
+                                    .then((funcionarios) => {
+                                        response.render('departamentos/edit', {
+                                            departamento: departamento,
+                                            funcionarios: funcionarios,
+                                        });
+                                    });
                     });
 });
 
 router.post('/departamento/update', adminAuth, async (request, response) => {
     var departamento_id = request.body.departamento_id;
     var departamento_nome = request.body.departamento_nome;
+    var departamento_encarregado = request.body.departamento_encarregado;
 
     await database('departamentos')
             .where('departamento_id', departamento_id)
                 .update({
                     departamento_nome: departamento_nome,
+                    departamento_encarregado: departamento_encarregado,
                 }).then(() => {
                     response.redirect('/departamentos');
                 }).catch(() => {
