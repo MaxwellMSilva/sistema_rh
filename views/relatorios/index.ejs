@@ -4,15 +4,33 @@
 
 <div class="ui container container_search">
     <div>
-        <form action="/relatorios" method="POST">
-            <label>RG do Funcionário: </label>
-            <input type="text" name="funcionario_nomeCompleto">
-            <label>Departamento: </label>
-            <input type="text" name="departamento_nome">
-            <label>Data de Admissão: </label>
-            <input type="date" name="funcionario_dataAdmissao">
-
-            <button>Pesquisar</button>
+        <form class="ui form" action="/relatorios" method="POST">
+        <div class="fields" style="display: flex; justify-content: space-between;">
+            <div class="field">
+                <label>RG do Funcionário: </label>
+                <div class="ui left icon input">
+                    <input type="text" name="funcionario_nomeCompleto">
+                    <i class="id card outline icon"></i>
+                </div>
+            </div>
+            <div class="field">
+                <label>Departamento: </label>
+                <div class="ui left icon input">
+                    <input type="text" name="departamento_nome">
+                    <i class="bookmark icon"></i>
+                </div>
+            </div>
+            <div class="field">
+                <label>Data de Admissão: </label>
+                <div class="ui input">
+                    <input type="date" name="funcionario_dataAdmissao">
+                </div>
+            </div>
+            <div class="field">
+                <label for=""></label>
+                <button class="ui button green" style="margin-top: 22px;">Pesquisar</button>
+            </div>
+        </div>
         </form>
     </div>
 
