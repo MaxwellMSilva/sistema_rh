@@ -103,15 +103,16 @@ router.post('/funcao/update', adminAuth, async (request, response) => {
 router.post('/funcoes', adminAuth, async (request, response) => {
     var funcao_nome = request.body.funcao_nome;
 
-    await database('departamento_funcoes')
-            .where('funcao_nome', 'like', `%${funcao_nome}%`)
-                .select('*')
-                    .orderBy('funcao_id', 'desc')
-                        .then((funcoes) => {
-                            response.render('funcoes/index', {
-                                funcoes: funcoes,
+    await database('departamentos')
+            .innerJoin('departamento_funcoes', 'departamento_funcoes.funcao_departamento', 'departamentos.departamento_id')
+                .where('funcao_nome', 'like', `%${funcao_nome}%`)
+                    .select('*')
+                        .orderBy('funcao_id', 'desc')
+                            .then((funcoes) => {
+                                response.render('funcoes/index', {
+                                    funcoes: funcoes,
+                                });
                             });
-                        });
 });
 
 router.get('/data/:funcao_id', adminAuth, async (request, response) => {
