@@ -161,9 +161,21 @@ router.post('/funcionario/save', adminAuth, async (request, response) => {
 router.get('/funcionario/data/:funcionario_id', adminAuth, async (request, response) => {
     var funcionario_id = request.params.funcionario_id;
 
+    if (isNaN(funcionario_id)) {
+        response.redirect('/funcionarios');
+    }
+
     await database('funcionarios')
             .innerJoin('departamento_funcoes', 'departamento_funcoes.funcao_id', 'funcionarios.funcionario_funcao')
             .innerJoin('departamentos', 'departamentos.departamento_id', 'departamento_funcoes.funcao_departamento')
+            .innerJoin('funcionario_endereco', 'funcionario_endereco.chave_rg', '=', 'funcionarios.chave_rg')
+            .innerJoin('funcionario_rg', 'funcionario_rg.rg_numero', '=', 'funcionarios.chave_rg')
+            .innerJoin('funcionario_cpf', 'funcionario_cpf.chave_rg', '=', 'funcionarios.chave_rg')
+            .innerJoin('funcionario_sus', 'funcionario_sus.chave_rg', '=', 'funcionarios.chave_rg')
+            .innerJoin('funcionario_tituloEleitor', 'funcionario_tituloEleitor.chave_rg', '=', 'funcionarios.chave_rg')
+            .innerJoin('funcionario_ctps', 'funcionario_ctps.chave_rg', '=', 'funcionarios.chave_rg')
+            .innerJoin('funcionario_reservista', 'funcionario_reservista.chave_rg', '=', 'funcionarios.chave_rg')
+            .innerJoin('funcionario_banco', 'funcionario_banco.chave_rg', '=', 'funcionarios.chave_rg')
                 .where('funcionario_id', funcionario_id)
                     .first()
                         .then((funcionario) => {
@@ -400,7 +412,7 @@ router.post('/funcionario/update/:chave', adminAuth, async (request, response) =
 
         }).then(() => { response.redirect('/funcionarios'); });
     } catch (err) {
-        response.redirect('/funcionarios');
+        response.redirect(`/funcionario/edit/${chave}`);
         console.log(err);
     }
 });

@@ -3,14 +3,17 @@
 <div class="ui container">
     <br>
     <form class="ui form" action="/departamento/save" method="POST">
-        <div class="field">
-            <label>Adicionar Departamento</label>
-            <input type="text" name="departamento_nome" placeholder="Nome do Departamento" required>
+        <div class="two fields">
+            <div class="field">
+                <label>Adicionar Departamento</label>
+                <input type="text" name="departamento_nome" placeholder="Nome do Departamento" required>
+            </div>
+            <div class="field">
+                <label>Encarregado:</label>
+                <input class="form-control" type="text" name="departamento_encarregado" placeholder="Encarregado" required>
+            </div>
         </div>
-        <div class="field">
-            <label>Encarregado:</label>
-            <input class="form-control" type="text" name="departamento_encarregado" placeholder="Encarregado" required>
-        </div>
+
         <a class="ui button" href="/departamentos">Voltar</a>
         <button class="ui button green" type="submit">Registrar Departamento</button>
     </form>
