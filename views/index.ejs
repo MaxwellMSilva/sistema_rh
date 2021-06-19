@@ -75,28 +75,37 @@
 </style>
 
 <div class="container">
-    <div class="ui container_login">
-        <div class="form_login">
-            <div class="title-card align_center">
-                <div class="header">Insira seu código de administrador</div>
-            </div>
-
+    <div class="ui placeholder segment">
+        <div class="ui two column very relaxed stackable grid">
+          <div class="column" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <div class="header" style="position: absolute; top: 10px; line-height: 1.3; font-size: 20px; text-align: center;">Insira seu código </br> de </br> administrador</div>
+            <div class="ui form">
             <form action="/authenticate" method="POST">
-                <div class="ct_form">
-                    <div class="ui left icon input">
-                        <input type="password" name="senha_acesso" placeholder="Código de ADM" required>
-                        <i class="user icon"></i>
-                    </div>
+              <div class="field">
+                <label>Código de ADM</label>
+                <div class="ui left icon input">
+                    <input type="password" name="senha_acesso" placeholder="Código de ADM" required>
+                  <i class="lock icon"></i>
                 </div>
-                <div class="container_button">
-                    <button type="submit" class="ui right labeled icon button blue btn_logar">
-                        <i class="right arrow icon"></i>
-                        Logon 
-                    </button>
-                </div>
+              </div>
+              <div class="container_button">
+                <button type="submit" class="ui right labeled icon button blue btn_logar">
+                    <i class="right arrow icon"></i>
+                    Logon 
+                </button>
+            </div>
             </form>
+            </div>
+          </div>
+          <div class="middle aligned column">
+              <div class="img">
+                <img style="width: 100%; height: 100%" src="https://media-exp1.licdn.com/dms/image/C4D22AQG6Uj9DnAII4w/feedshare-shrink_800/0/1624121390601?e=1626912000&v=beta&t=tw-5JqSMfMg3Ra4bgg0xavkk_5LmmYQNBekCe1c_Ge8">
+              </div>
+          </div>
         </div>
-    </div>
+        <div class="ui vertical divider">
+        </div>
+      </div>
 </div>
 
 <%- include('parts/footer.ejs') %>
